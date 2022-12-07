@@ -1,245 +1,141 @@
+<section class="ftco-menu mb-5 pb-5">
+	<div class="container">
+		<div class="row justify-content-center mb-5">
+			<div class="col-md-7 heading-section text-center ftco-animate">
+				<span class="subheading">Discover</span>
+				<h2 class="mb-4">Our Products</h2>
+				<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live
+					the blind texts.</p>
+			</div>
+		</div>
 
-    <section class="ftco-menu mb-5 pb-5">
-    	<div class="container">
-    		<div class="row justify-content-center mb-5">
-          <div class="col-md-7 heading-section text-center ftco-animate">
-          	<span class="subheading">Discover</span>
-            <h2 class="mb-4">Our Products</h2>
-            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-          </div>
-        </div>
-    		<div class="row d-md-flex">
-	    		<div class="col-lg-12 ftco-animate p-md-5">
-		    		<div class="row">
-		          <div class="col-md-12 nav-link-wrap mb-5">
-		            <div class="nav ftco-animate nav-pills justify-content-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-		              <a class="nav-link active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Coffee</a>
+		{{!-- staff filter --}}
+		<div class="search-sec">
+			<form action="" method="get" novalidate="novalidate">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="row">
+							<div class="col-lg-3 col-md-3 col-sm-12 p-0">
+								<input type="text" class="form-control search-slt" placeholder="Enter Key Word"
+									name="keyword">
+							</div>
+							<div class="col-lg-3 col-md-3 col-sm-12 p-0">
+								<select class="form-control search-slt" id="selectCategory" name="type">
+									<option value="none" selected disabled hidden>Category</option>
+									<option value="10">All</option>
+									<option value="0">Coffee</option>
+									<option value="1">Milk Tea</option>
+									<option value="2">Cake</option>
+								</select>
+							</div>
+							<div class="col-lg-3 col-md-3 col-sm-12 p-0">
+								<select class="form-control search-slt" id="selectPriceRange" name="price">
+									<option value="none" selected disabled hidden>Price Range</option>
+									<option value="10">All</option>
+									<option value="1">Less than 20,000</option>
+									<option value="2">20,000 - 30,000</option>
+									<option value="3">30,000 - 40,000</option>
+									<option value="4">40,000 - 50,000</option>
+									<option value="5">50,000 - 60,000</option>
+									<option value="6">Larger than 60,000</option>
+								</select>
+							</div>
+							<div class="col-lg-3 col-md-3 col-sm-12 p-0">
+								<button type="submit" class="btn btn-danger wrn-btn">Search</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		{{!-- end staff filter --}}
+				<div class="dropdown sort">
+					<div class="col-lg-2 col-md-2 col-sm-12 p-0">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort by
+						<span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						{{!-- <script>
+							let start = {{originalUrl}}.indexOf('sort');
+							
+							if(start>-1) {{originalUrl}} = {{originalUrl}}.replace({{originalUrl}}.substring(start,{{originalUrl}}.length-1),'');
+							console.log("lidduhyuj"+{{originalUrl}});
+						</script> --}}
+						<li><a href="{{originalUrl}}sort=newest">Newest</a></li>
+						<li><a href="{{originalUrl}}sort=bestrating">Best Rating</a></li>
+						<li><a href="{{originalUrl}}sort=hightolow">Price - High to Low</a></li>
+						<li><a href="{{originalUrl}}sort=lowtohigh">Price - Low to High</a></li>
+					</ul>
+					</div>
+				</div>
 
-		              <a class="nav-link" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2" role="tab" aria-controls="v-pills-2" aria-selected="false">Other drinks</a>
 
-		              <a class="nav-link" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab" aria-controls="v-pills-3" aria-selected="false">Desserts</a>
-		            </div>
-		          </div>
-		          <div class="col-md-12 d-flex align-items-center">
-		            
-		            <div class="tab-content ftco-animate" id="v-pills-tabContent">
 
-		              <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-1-tab">
-		              	<div class="row">
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000001" class="menu-img img mb-4" style="background-image: url(/images/black_latte.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000001">Black Latte</a></h3>
-		              					<p>Black Latte is a ready-to-make instant coffee that helps in reducing weight, detoxifying the body, and weight control over a long duration.</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000002" class="menu-img img mb-4" style="background-image: url(/images/Mocha_macchiato.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000002"></a>Mocha macchiato</h3>
-		              					<p>Let's drink it!.</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000003" class="menu-img img mb-4" style="background-image: url(/images/Bac_xiu.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000003">Bac xiu</a></h3>
-		              					<p>Let's drink it!.</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000004" class="menu-img img mb-4" style="background-image: url(/images/black_capuccino.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000004">Black capuccino</a></h3>
-		              					<p>Let's drink it!</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000005" class="menu-img img mb-4" style="background-image: url(/images/espresso.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000005"></a>Espresso</h3>
-		              					<p>Let's drink it!.</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000006" class="menu-img img mb-4" style="background-image: url(/images/creamy_coffee.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000006"></a></h3>
-		              					<p>Let's drink it!.</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              	</div>
-		              </div>
+				{{!--horizontal scroll --}}
+				<div class="container-fluid py-2">
+					{{!-- <h2 class="font-weight-light">Bootstrap 4 Horizontal Scrolling Cards with Flexbox</h2> --}}
+					<div class="row flex-row overflow-auto" id="first_render">
+						{{#each result.products}}
+						<div class="col-md-4 text-center card card-block cardbackground">
+							<div class="menu-wrap">
+								<a href="/products/detail?idprod={{idProduct}}&type={{productType}}"
+									class="menu-img img mb-4" style="background-image: url({{productImage}});"></a>
+								<div class="text">
+									<h3><a
+											href="/products/detail?idprod={{idProduct}}&type={{productType}}">{{productName}}</a>
+									</h3>
+									<p>Black Latte is a ready-to-make instant coffee that helps in reducing
+										weight, detoxifying the body, and weight control over a long
+										duration.</p>
+									<p>
+										Release Date: {{releaseDate}}
+									</p>
+									<p>
+										Rating: {{rating}}/5
+									</p>
+									<p class="price"><span>{{productPrice}}</span></p>
+									<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
+								</div>
+							</div>
+						</div>
+						{{/each}}
+					</div>
+				</div>
 
-		              <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-2-tab">
-		                <div class="row">
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000020" class="menu-img img mb-4" style="background-image: url(/images/orange_juice.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000020">Orange Juice</a></h3>
-		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-		              					<p class="price"><span>2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000021" class="menu-img img mb-4" style="background-image: url(/images/lemon_tea);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000021">Pineapple Juice</a></h3>
-		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000022" class="menu-img img mb-4" style="background-image: url(/images/lemon_soda.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000022">Soda Drinks</a></h3>
-		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000023" class="menu-img img mb-4" style="background-image: url(/images/Coconut-Mocha-Frappuccino.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000023">Lemonade Juice</a></h3>
-		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000024" class="menu-img img mb-4" style="background-image: url(/images/fruit_pudding.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000023">Pineapple Juice</a></h3>
-		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000025" class="menu-img img mb-4" style="background-image: url(/images/strawberry_mixed_ice.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000025">Soda Drinks</a></h3>
-		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              	</div>
-		              </div>
 
-		              <div class="tab-pane fade" id="v-pills-3" role="tabpanel" aria-labelledby="v-pills-3-tab">
-		                <div class="row">
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000030" class="menu-img img mb-4" style="background-image: url(/images/rose_cake.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000030">Hot Cake Honey</a></h3>
-		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000031" class="menu-img img mb-4" style="background-image: url(/images/fruit_pancake.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000031">Hot Cake Honey</a></h3>
-		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000032" class="menu-img img mb-4" style="background-image: url(/images/black_strawberry_cake.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000032">Hot Cake Honey</a></h3>
-		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000033" class="menu-img img mb-4" style="background-image: url(/images/banana_smooth_cream.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000033">Hot Cake Honey</a></h3>
-		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000034" class="menu-img img mb-4" style="background-image: url(/images/strawberry_honey_pancake.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000034">Hot Cake Honey</a></h3>
-		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              		<div class="col-md-4 text-center">
-		              			<div class="menu-wrap">
-		              				<a href="/products/000035" class="menu-img img mb-4" style="background-image: url(/images/combo.jpg);"></a>
-		              				<div class="text">
-		              					<h3><a href="/products/000035">Hot Cake Honey</a></h3>
-		              					<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia.</p>
-		              					<p class="price"><span>$2.90</span></p>
-		              					<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-		              				</div>
-		              			</div>
-		              		</div>
-		              	</div>
-		              </div>
-		            </div>
-		          </div>
-		        </div>
-		      </div>
-		    </div>
-    	</div>
-    </section>
+
+				<div class="row d-md-flex">
+					<div class="col-lg-12 ftco-animate p-md-5">
+						<div class="row">
+							<div class="col-md-12 nav-link-wrap mb-5">
+								<div class="nav ftco-animate nav-pills justify-content-center" id="v-pills-tab"
+									role="tablist" aria-orientation="vertical">
+									<nav aria-label="Page navigation example">
+										<ul class="pagination">
+											<li class="page-item" id="prev-page">
+												<a class="page-link" href="#" aria-label="Previous">
+													<span aria-hidden="true">&laquo;</span>
+													<span class="sr-only">Previous</span>
+												</a>
+											</li>
+											{{#result.pageobject.pagearray}}
+											<li class="page-item"><a class="page-link" href="#">{{pagearray}}</a></li>
+											{{/result.pageobject.pagearray}}
+
+											<li class="page-item">
+												<a class="page-link" aria-label="Next">
+													<span aria-hidden="true">&raquo;</span>
+													<span class="sr-only"><button id="next-page">Next</button></span>
+												</a>
+											</li>
+										</ul>
+									</nav>
+
+								</div>
+							</div>
+</section>
+
+
+{{!--
+<script>
+
+</script> --}}
