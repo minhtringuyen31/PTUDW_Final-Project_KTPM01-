@@ -36,17 +36,15 @@ const productService = require('./productService');
 
 
 exports.allProductList = async (req, res) => {
-  
+
   let received;
   let originalUrl = req.baseUrl + req.url;
 
-  if(Object.keys(req.query).length != 0)
-  {
+  if (Object.keys(req.query).length != 0) {
     originalUrl = originalUrl + "&";
     received = await productService.filter(req.query);
   }
-  else
-  {
+  else {
     originalUrl = originalUrl + "?";
     received = await productService.getAllProductList();
   }
@@ -54,15 +52,13 @@ exports.allProductList = async (req, res) => {
     pageobject: received[0],
     products: received[1]
   }
-  if(originalUrl.includes("sort"))
-  {
+  if (originalUrl.includes("sort")) {
     let start = originalUrl.indexOf("sort");
-    originalUrl = originalUrl.replace(originalUrl.substring(start),"");
+    originalUrl = originalUrl.replace(originalUrl.substring(start), "");
   }
   console.log(originalUrl);
-  res.render('user/products/list', {result, originalUrl, layout: 'layout.hbs' });
+  res.render('user/products/list', { result, originalUrl, layout: 'layout.hbs' });
 }
-
 exports.productDetail = async (req, res, next) => {
   const inputQuery = req.query;
   const receiveResult = await productService.getProduct(inputQuery.idprod, inputQuery.type);
