@@ -4,7 +4,7 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
- :root {
+:root {
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -12964,4 +12964,41 @@ textarea.form-control {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px;
   }
+}
+
+
+
+
+
+.editProfile {
+  display: flex;
+  justify-content: center;
+  background: rgb(253, 253, 253, 0.1)
+    /* Green background with 30% opacity */
+}
+
+.editProfile .labels {
+  font-weight: bold;
+}
+
+.nav-pills .nav-link {
+  border-radius: 16px;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+  color: #fff;
+  background-color: #9F8772;
+}
+
+.nav-link {
+  font-size: large;
+}
+
+.tab-content>.tab-pane {
+  display: none;
+}
+
+.tab-content>.active {
+  display: block;
 }
