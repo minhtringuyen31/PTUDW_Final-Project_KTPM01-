@@ -1,13 +1,13 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const authenService = require('./authenServices');
+const authService = require('./authServices');
 
 
 passport.use(new LocalStrategy({usernameField: 'account'}, async function verify(account, password, cb)
 {
     console.log(account);
     console.log(password);
-    const user = await authenService.logIn(account, password);
+    const user = await authService.logIn(account, password);
     console.log(user);
     if(user)
     {

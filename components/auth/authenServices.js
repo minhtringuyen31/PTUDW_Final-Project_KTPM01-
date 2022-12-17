@@ -1,7 +1,7 @@
 const Ajv = require('ajv');
 const addFormats = require('ajv-formats');
-const authenSchemas = require('./authenSchemas');
-const authenRep = require('./authenRepository');
+const authSchemas = require('./authSchemas');
+const authRep = require('./authRepository');
 const bcrypt = require('bcryptjs');
 
 
@@ -16,7 +16,7 @@ addFormats(ajv);
  */
 exports.checkLogInFormat = (reqBody) =>
 {
-    if(!ajv.validate(authenSchemas.logInSchema, reqBody))
+    if(!ajv.validate(authSchemas.logInSchema, reqBody))
     {
         return false;
     }
@@ -25,7 +25,7 @@ exports.checkLogInFormat = (reqBody) =>
 
 exports.checkSignUpFormat = (reqBody) =>
 {
-    if(!ajv.validate(authenSchemas.signUpSchema, reqBody))
+    if(!ajv.validate(authSchemas.signUpSchema, reqBody))
     {
         return false;
     }
@@ -34,7 +34,7 @@ exports.checkSignUpFormat = (reqBody) =>
 
 exports.isExistedAccount = async(reqBody) =>
 {
-    const check = await authenRep.isExistedPhoneNumber(reqBody.userPhone);
+    const check = await authRep.isExistedPhoneNumber(reqBody.userPhone);
     if(check)
     {
         return true;
@@ -49,7 +49,7 @@ exports.register = async(reqBody) =>
 {
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(reqBody.userPassword, salt);
-    const check = await authenRep.addNewUser(reqBody.userPhone, hashPassword, reqBody.userName, reqBody.userGender, reqBody.userAddress);
+    const check = await authRep.addNewUser(reqBody.userPhone, hashPassword, reqBody.userName, reqBody.userGender, reqBody.userAddress);
     console.log("register: " + check);
     if(check)
     {
@@ -63,7 +63,7 @@ exports.register = async(reqBody) =>
 
 exports.logIn = async(inputPhone, inputPassword) =>
 {
-    const user = await authenRep.getUserAccountByPhone(inputPhone);
+    const user = await authRep.getUserAccountByPhone(inputPhone);
     if(!user)
     {
         return null;

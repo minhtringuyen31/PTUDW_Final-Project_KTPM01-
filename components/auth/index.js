@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authenController = require('./authenController');
+const authController = require('./authController');
 const passport = require('./passport');
 
 
@@ -16,16 +16,16 @@ router.post('/login', passport.authenticate('local', {
 
 router.get('/login', function (req, res) {
   //throw new Error('Unknown error!');
-  res.render('authentication/logIn', { layout: false });
+  res.render('auth/logIn', { layout: false });
 });
 
 router.get('/signup', function (req, res, next) {
   //throw new Error('Unknown error!');
-  res.render('authentication/signUp', { layout: false });
+  res.render('auth/signUp', { layout: false });
 });
 
-router.post('/signup', authenController.signup);
+router.post('/signup', authController.signup);
 
-router.get('/logout', authenController.logout);
+router.get('/logout', authController.logout);
 
 module.exports = router;

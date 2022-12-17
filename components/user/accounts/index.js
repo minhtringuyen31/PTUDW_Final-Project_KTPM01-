@@ -9,7 +9,7 @@ router.get('/editProfile', function(req, res, next)
     res.render('user/accounts/editProfile');
 });
 
-// router.post('/login', passport.authenticate('local', {
+// router.post('/login', passport.authticate('local', {
 //   successRedirect: '/index',
 //   failureRedirect: '/account/login'
 // }));
