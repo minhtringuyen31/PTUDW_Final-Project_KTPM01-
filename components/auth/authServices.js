@@ -64,7 +64,7 @@ exports.register = async(reqBody) =>
 exports.logIn = async(inputPhone, inputPassword) =>
 {
     const user = await authRep.getUserAccountByPhone(inputPhone);
-    if(!user)
+    if(!user || user.length == 0)
     {
         return null;
     }
