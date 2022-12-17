@@ -11,14 +11,14 @@ const productRouter = require('./components/user/products');
 // const accountRouter = require('./components/user/accounts');
 // const accountAdminRouter = require('./components/admin/accounts');
 const dashboardRouter = require('./components/admin');
-const authRouter = require('./components/authentication');
+const authRouter = require('./components/auth');
 const customerRouter = require('./components/admin/customers');
 const manageProductRouter = require('./components/admin/products');
 const accountRouter = require('./components/user/accounts');
 
 
 
-const passport = require('./components/authentication/passport');
+const passport = require('./components/auth/passport');
 
 const app = express();
 
