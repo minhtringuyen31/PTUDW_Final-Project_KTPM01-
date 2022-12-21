@@ -8,7 +8,7 @@ router.get('/', function (req, res) {
 
 router.get('/list', productController.allProductList);
 
-// router.get('/detail', productController.productDetail);
+router.get('/detail', productController.productDetail);
 
 // router.get('/list/page', productController.getProductOfPage); 
 
