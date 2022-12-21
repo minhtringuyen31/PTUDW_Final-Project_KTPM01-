@@ -1,141 +1,144 @@
 <section class="ftco-menu mb-5 pb-5">
-	<div class="container">
-		<div class="row justify-content-center mb-5">
-			<div class="col-md-7 heading-section text-center ftco-animate">
-				<span class="subheading">Discover</span>
-				<h2 class="mb-4">Our Products</h2>
-				<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live
-					the blind texts.</p>
-			</div>
-		</div>
-
-		{{!-- staff filter --}}
-		<div class="search-sec">
-			<form action="" method="get" novalidate="novalidate">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="row">
-							<div class="col-lg-3 col-md-3 col-sm-12 p-0">
-								<input type="text" class="form-control search-slt" placeholder="Enter Key Word"
-									name="keyword">
-							</div>
-							<div class="col-lg-3 col-md-3 col-sm-12 p-0">
-								<select class="form-control search-slt" id="selectCategory" name="type">
-									<option value="none" selected disabled hidden>Category</option>
-									<option value="10">All</option>
-									<option value="0">Coffee</option>
-									<option value="1">Milk Tea</option>
-									<option value="2">Cake</option>
-								</select>
-							</div>
-							<div class="col-lg-3 col-md-3 col-sm-12 p-0">
-								<select class="form-control search-slt" id="selectPriceRange" name="price">
-									<option value="none" selected disabled hidden>Price Range</option>
-									<option value="10">All</option>
-									<option value="1">Less than 20,000</option>
-									<option value="2">20,000 - 30,000</option>
-									<option value="3">30,000 - 40,000</option>
-									<option value="4">40,000 - 50,000</option>
-									<option value="5">50,000 - 60,000</option>
-									<option value="6">Larger than 60,000</option>
-								</select>
-							</div>
-							<div class="col-lg-3 col-md-3 col-sm-12 p-0">
-								<button type="submit" class="btn btn-danger wrn-btn">Search</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-		</div>
-		{{!-- end staff filter --}}
-				<div class="dropdown sort">
-					<div class="col-lg-2 col-md-2 col-sm-12 p-0">
-					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort by
-						<span class="caret"></span></button>
-					<ul class="dropdown-menu">
-						{{!-- <script>
-							let start = {{originalUrl}}.indexOf('sort');
-							
-							if(start>-1) {{originalUrl}} = {{originalUrl}}.replace({{originalUrl}}.substring(start,{{originalUrl}}.length-1),'');
-							console.log("lidduhyuj"+{{originalUrl}});
-						</script> --}}
-						<li><a href="{{originalUrl}}sort=newest">Newest</a></li>
-						<li><a href="{{originalUrl}}sort=bestrating">Best Rating</a></li>
-						<li><a href="{{originalUrl}}sort=hightolow">Price - High to Low</a></li>
-						<li><a href="{{originalUrl}}sort=lowtohigh">Price - Low to High</a></li>
-					</ul>
-					</div>
-				</div>
-
-
-
-				{{!--horizontal scroll --}}
-				<div class="container-fluid py-2">
-					{{!-- <h2 class="font-weight-light">Bootstrap 4 Horizontal Scrolling Cards with Flexbox</h2> --}}
-					<div class="row flex-row overflow-auto" id="first_render">
-						{{#each result.products}}
-						<div class="col-md-4 text-center card card-block cardbackground">
-							<div class="menu-wrap">
-								<a href="/products/detail?idprod={{idProduct}}&type={{productType}}"
-									class="menu-img img mb-4" style="background-image: url({{productImage}});"></a>
-								<div class="text">
-									<h3><a
-											href="/products/detail?idprod={{idProduct}}&type={{productType}}">{{productName}}</a>
-									</h3>
-									<p>Black Latte is a ready-to-make instant coffee that helps in reducing
-										weight, detoxifying the body, and weight control over a long
-										duration.</p>
-									<p>
-										Release Date: {{releaseDate}}
-									</p>
-									<p>
-										Rating: {{rating}}/5
-									</p>
-									<p class="price"><span>{{productPrice}}</span></p>
-									<p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
-								</div>
-							</div>
-						</div>
-						{{/each}}
-					</div>
-				</div>
-
-
-
-				<div class="row d-md-flex">
-					<div class="col-lg-12 ftco-animate p-md-5">
-						<div class="row">
-							<div class="col-md-12 nav-link-wrap mb-5">
-								<div class="nav ftco-animate nav-pills justify-content-center" id="v-pills-tab"
-									role="tablist" aria-orientation="vertical">
-									<nav aria-label="Page navigation example">
-										<ul class="pagination">
-											<li class="page-item" id="prev-page">
-												<a class="page-link" href="#" aria-label="Previous">
-													<span aria-hidden="true">&laquo;</span>
-													<span class="sr-only">Previous</span>
-												</a>
-											</li>
-											{{#result.pageobject.pagearray}}
-											<li class="page-item"><a class="page-link" href="#">{{pagearray}}</a></li>
-											{{/result.pageobject.pagearray}}
-
-											<li class="page-item">
-												<a class="page-link" aria-label="Next">
-													<span aria-hidden="true">&raquo;</span>
-													<span class="sr-only"><button id="next-page">Next</button></span>
-												</a>
-											</li>
-										</ul>
-									</nav>
-
-								</div>
-							</div>
+    <div class="container">
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-7 heading-section text-center ftco-animate">
+                <span class="subheading">Discover</span>
+                <h2 class="mb-4">Our Products</h2>
+                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live
+                    the blind texts.</p>
+            </div>
+        </div>
+        {{!-- staff filter --}}
+        <div class="search-sec">
+            <form action="" method="get" novalidate="novalidate">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                <input type="text" class="form-control search-slt" placeholder="Enter Key Word"
+                                    name="keyword">
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                <select class="form-control search-slt" id="selectCategory" name="type">
+                                    <option value="none" selected disabled hidden>Category</option>
+                                    <option value="10">All</option>
+                                    <option value="0">Coffee</option>
+                                    <option value="1">Milk Tea</option>
+                                    <option value="2">Cake</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                <select class="form-control search-slt" id="selectPriceRange" name="price">
+                                    <option value="none" selected disabled hidden>Price Range</option>
+                                    <option value="10">All</option>
+                                    <option value="1">Less than 20,000</option>
+                                    <option value="2">20,000 - 30,000</option>
+                                    <option value="3">30,000 - 40,000</option>
+                                    <option value="4">40,000 - 50,000</option>
+                                    <option value="5">50,000 - 60,000</option>
+                                    <option value="6">Larger than 60,000</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                <button type="submit" class="btn btn-danger wrn-btn" name="_page"
+                                    value="0">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        {{!-- end staff filter --}}
+        <div class="dropdown sort">
+            <div class="col-lg-2 col-md-2 col-sm-12 p-0">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort by
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="{{originalUrl}}sort=newest&_page=0">Newest</a></li>
+                    <li><a href="{{originalUrl}}sort=bestrating&_page=0">Best Rating</a></li>
+                    <li><a href="{{originalUrl}}sort=hightolow&_page=0">Price - High to Low</a></li>
+                    <li><a href="{{originalUrl}}sort=lowtohigh&_page=0">Price - Low to High</a></li>
+                </ul>
+            </div>
+        </div>
+        {{!--horizontal scroll --}}
+        <div class="container-fluid py-2">
+            {{!-- <h2 class="font-weight-light">Bootstrap 4 Horizontal Scrolling Cards with Flexbox</h2> --}}
+            <div class="row flex-row overflow-auto" id="product_list">
+                {{#each result.products}}
+                <div class="col-md-4 text-center card card-block cardbackground">
+                    <div class="menu-wrap">
+                        <a href="/products/detail?idprod={{idProduct}}&type={{productType}}" class="menu-img img mb-4"
+                            style="background-image: url({{productImage}});"></a>
+                        <div class="text">
+                            <h3><a href="/products/detail?idprod={{idProduct}}&type={{productType}}">{{productName}}</a>
+                            </h3>
+                            <p>Black Latte is a ready-to-make instant coffee that helps in reducing
+                                weight, detoxifying the body, and weight control over a long
+                                duration.</p>
+                            <p>
+                                Release Date: {{releaseDate}}
+                            </p>
+                            <p>
+                                Rating: {{rating}}/5
+                            </p>
+                            <p class="price"><span>{{productPrice}}</span></p>
+                            <p><a href="#" class="btn btn-primary btn-outline-primary">Add to cart</a></p>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        <div class="row d-md-flex">
+            <div class="col-lg-12 ftco-animate p-md-5">
+                <div class="row">
+                    <div class="col-md-12 nav-link-wrap mb-5">
+                        <div class="nav ftco-animate nav-pills justify-content-center" id="v-pills-tab" role="tablist"
+                            aria-orientation="vertical">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item" id="prev-page">
+                                        <a class="page-link paginator" href="{{pagingUrl}}_page={{result.pageobject.prevpage}}" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+                                    {{#each result.pageobject.pagearray}}
+                                    <li class="page-item"><a class="page-link paginator" href="{{../pagingUrl}}_page={{@index}}">{{@index}}</a>
+                                    </li>
+                                    {{/each}}
+                                    <li class="page-item">
+                                        <a class="page-link paginator" href="{{pagingUrl}}_page={{result.pageobject.nextpage}}" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only"><button id="next-page">Next</button></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
 </section>
-
-
-{{!--
+{{!-- 
 <script>
-
+    let currentPage = {{ result.pageobject.currentpage }};
+    console.log("current page in script: " + currentpage)
+    let myURL = "/products/list/page?_page=" + currentPage;
+    $('li.paginator>a').click(function () {
+        console.log("ajax");
+        $.ajax(
+            { 
+                url: myURL,
+                method: 'GET',
+                success: function (data) {
+                    let pageObject = data[0];
+                    let productList = data[1];
+                    console.log("pageObject in script: ");
+                    console.log(pageObject);
+                    console.log("products in script:");
+                    console.log(productList);
+                }
+            }
+        )
+    })
 </script> --}}
