@@ -1,121 +1,129 @@
 const connection = require('../../connectDB');
 // const { productDetail } = require('./productController');
 
-let DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE = 6;
-let maxPage = 0;
-let currentPage = 0;
+let DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE = Number(6);
+let maxPage = Number(0);
+let currentPage = Number(0);
 let productList = [];
-let currentProductType = '0';
+let currentType = undefined;
+let currentPrice = undefined;
+let currentKeyword = undefined;
+let currentSort = undefined;
+let currentMode = 0; //filter is not used
 
-
-
-// exports.getProductList = async(_productType, _page) =>{
-//     if(_page < 0)
-//     {
-//         _page = 0;
-//     }
-//     else if(_page > maxPage)
-//     {
-//         _page = maxPage
-//     }
-//     var ListMappingToPage = [];
-//     let limit = DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE*(_page + 1);
-//     if(limit > productList.length)
-//     {
-//         limit = productList.length -1;
-//     }
-//     if(productList.length > 0 && currentProductType == _productType) //don't have to re-query the database
-//     {
-//         for(let i = _page*DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE; i < limit; i++)
-//         {
-//             ListMappingToPage.push(productList[i]);
-//         }
-//     }
-//     else
-//     {
-//         const promisePool = connection.promise();
-//         const [rows, fields] = await promisePool.query('SELECT product.idProduct, product.productName, productImage, productPrice FROM product WHERE product.productType = ?', [_productType]);
-//         // console.log(await promisePool.query('SELECT product.idProduct, product.productName, productImage, productPrice FROM product WHERE product.productType = ?', [_productType]));
-//         console.log(rows);
-//         productList = rows;
-//         maxPage = (productList.length - (productList.length % DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE)) / DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE;
-//         currentProductType = _productType;
-//         currentPage = 0;
-//         for(let i = _page*DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE; i < limit; i++)
-//         {
-//             ListMappingToPage.push(productList[i]);
-//         }
-//     }
-//     return ListMappingToPage;
-// }
 
 exports.getProductList = async (_productType) => {
 
 };
 
-exports.getAllProductList = async () => {
-    const poolPromise = connection.promise();
-    const [rows, fields] = await poolPromise.query('SELECT product.idProduct, product.productName, productImage, productType, productPrice FROM product');
-    
-    productList = rows;
-    if (productList === undefined || productList.length == 0) {
-        return productList;
+exports.getAllProductList = async (inputQuery) => {
+
+    if (productList.length > 0 && currentMode == 0) // the user want to change other pages
+    {
+        console.log("get product by old List");
+        return getProductOfPage(Number(inputQuery._page));
     }
-    console.log(productList.length)
-    maxPage = (productList.length - (productList.length % DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE)) / DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE;
-    console.log(maxPage);
+
+    //Query a new product list
+    const poolPromise = connection.promise();
+    const [rows, fields] = await poolPromise.query('SELECT product.idProduct, product.productName, product.productImage, product.productType, product.productPrice, product.releaseDate, product.rating FROM product');
+
+    productList = rows;
+
     let pageArray = [];
     let productListToShow = [];
+    maxPage = Number((productList.length - (productList.length % DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE)) / DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE);
+
     for (let i = 0; i <= maxPage; i++) {
-        pageArray.push(i.toString());
+        pageArray.push(String(i));
     }
     for (let i = 0; i < DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE; i++) {
         productListToShow.push(productList[i]);
     }
+
+    currentPage = Number(0);
+    let nextPage = Number(1);
+    let prevPage = Number(0);
+
     const pageObject = {
+        ischangepage: false,
         pagearray: pageArray,
         maxpage: maxPage,
-        currentpage: currentPage,
+        currentpage: String(currentPage),
+        nextpage: String(nextPage),
+        prevpage: String(prevPage),
         defaultnumberpage: DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE,
     };
-    //I change here
-    return [pageObject, productList];
+
+    currentMode = 0;
+    currentKeyword = inputQuery.keyword;
+    currentPrice = inputQuery.price;
+    currentSort = inputQuery.sort;
+    currentType = inputQuery.type;
+
+    console.log(pageObject);
+    console.log("productList to show");
+    console.log(productListToShow);
+    return [pageObject, productListToShow];
 };
 
 //Ajax for changing pages /////////////////////////////////////////
 
-exports.getProductCurrentPage = (_page) => {
+/**
+ * @param _page
+ * @returns {pageObject,ProductList}
+ */
+getProductOfPage = (_page) => {
+    console.log("_page in #" + _page);
     if (_page < 0) {
-        _page = 0;
+        _page = Number(0);
     }
     else if (_page > maxPage) {
-        _page = maxPage;
+        _page = Number(maxPage);
     }
-    let limit = DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE * (_page + 1);
-    let ShowProducts = [];
+    let limit = Number(DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE * (_page + 1));
+    console.log("limit" + limit);
+    let pageArray = []
+    let productListToShow = [];
     if (limit > productList.length) {
-        limit = productList.length;
+        limit = Number(productList.length);
     }
+
+    for (let i = 0; i <= maxPage; i++) {
+        pageArray.push(String(i));
+    }
+
     for (let i = _page * DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE; i < limit; i++) {
-        ShowProducts.push(productList[i]);
+        productListToShow.push(productList[i]);
     }
-    currentPage = _page;
+
+    currentPage = Number(_page);
+    let nextPage = currentPage + 1 > maxPage ? maxPage : Number(currentPage + 1);
+    let prevPage = currentPage - 1 < 0 ? 0 : Number(currentPage - 1);
+
     const pageObject = {
+        ischangepage: true,
         pagearray: pageArray,
         maxpage: maxPage,
-        currentpage: currentPage,
+        currentpage: String(currentPage),
+        nextpage: String(nextPage),
+        prevpage: String(prevPage),
         defaultnumberpage: DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE,
     };
-    return [pageObject, ShowProducts];
+
+    console.log(pageObject);
+    console.log("productList to show");
+    console.log(productListToShow);
+
+    return [pageObject, productListToShow];
 
 }
 
 ///////////////////////////////////////////////////////////////////
 
-exports.getProduct = async (_productID, _productType) => {
+exports.getProductDetail = async (_productID, _productType) => {
     const poolPromise = connection.promise();
-    if (productList.length == 0 || currentProductType != _productType) {
-        console.log("run here");
+    if (productList.length == 0 || currentType != _productType) {
         const res = await poolPromise.query('SELECT product.idProduct, product.productName, productImage, productType, productPrice, product.releaseDate, product.rating FROM product WHERE product.productType = ?', [_productType]);
         productList = res[0];
         currentProductType = _productType;
@@ -127,10 +135,16 @@ exports.getProduct = async (_productID, _productType) => {
     return [mainProduct, relativeProducts];
 }
 
-exports.currentProductType = currentProductType;
 
 
 exports.filter = async (inputQuery) => {
+
+    if (productList.length > 0 && (inputQuery.keyword === currentKeyword && inputQuery.type === currentType && inputQuery.price === currentPrice && inputQuery.sort === currentSort)) // the user want to change other pages
+    {
+        console.log("get filter from old product list");
+        return getProductOfPage(Number(inputQuery._page));
+    }
+
     let queryPara = [];
     let queryString = "SELECT product.idProduct, product.productName, product.productImage, product.productType, product.productPrice, product.releaseDate, product.rating FROM product";
     _where = " where";
@@ -139,12 +153,12 @@ exports.filter = async (inputQuery) => {
         queryString = queryString + _where + " product.productName like ?";
         _where = " and ";
     }
-    if (inputQuery.type && parseInt(inputQuery.type)!=10) {    
+    if (inputQuery.type && parseInt(inputQuery.type) != 10) {
         queryPara.push(inputQuery.type);
         queryString = queryString + _where + " product.productType = ?";
         _where = " and ";
     }
-    if (inputQuery.price && parseInt(inputQuery.price)!=10) {
+    if (inputQuery.price && parseInt(inputQuery.price) != 10) {
         let _price = "";
         switch (parseInt(inputQuery.price)) {
             case 1:
@@ -152,7 +166,7 @@ exports.filter = async (inputQuery) => {
                     _price = " product.productPrice < 20000";
                     break;
                 }
-            case 2:  
+            case 2:
                 {
                     _price = " product.productPrice between 20000 and 30000";
                     break;
@@ -178,48 +192,65 @@ exports.filter = async (inputQuery) => {
                     _price = " product.productPrice > 60000";
                     break;
                 }
-    
+
         }
         queryString = queryString + _where + _price;
     }
-    
-    if(inputQuery.sort)
-    {
+
+    if (inputQuery.sort) {
         let sort_type = "";
-        if(inputQuery.sort == "hightolow")
-        {
+        if (inputQuery.sort == "hightolow") {
             sort_type = " ORDER BY product.productPrice DESC";
         }
-        else if(inputQuery.sort == "lowtohigh")
-        {
+        else if (inputQuery.sort == "lowtohigh") {
             sort_type = " ORDER BY product.productPrice ASC";
-        } 
-        else if(inputQuery.sort == "newest")
-        {
+        }
+        else if (inputQuery.sort == "newest") {
             sort_type = " ORDER BY product.releaseDate DESC";
         }
-        else if(inputQuery.sort == "bestrating")
-        {
+        else if (inputQuery.sort == "bestrating") {
             sort_type = " ORDER BY product.rating DESC";
         }
         queryString = queryString + sort_type;
     }
 
-    
 
-    console.log(queryString);
-    
     const poolPromise = connection.promise();
     const result = await poolPromise.query(queryString, queryPara);
-    const pageObject = {};
-    console.log(result[0][0]);
+    productList = result[0];
+    maxPage = (productList.length - (productList.length % DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE)) / DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE;
+    let pageArray = [];
+    let productListToShow = [];
 
-    // for(let i=0; i< result[0].length; i++) 
-    // {
+    for (let i = 0; i <= maxPage; i++) {
+        pageArray.push(String(i));
+    }
+    for (let i = 0; i < DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE; i++) {
+        productListToShow.push(productList[i]);
+    }
+    currentPage = 0;
+    currentMode = 1;
+    currentKeyword = inputQuery.keyword;
+    currentPrice = inputQuery.price;
+    currentSort = inputQuery.sort;
+    currentType = inputQuery.type;
 
-    //     let str = result[0][i].toString();
-    //     result[0][i].releaseDate = 
-    // } 
+    let nextPage = 1;
+    let prevPage = 0;
 
-    return [pageObject, result[0]];
+    const pageObject = {
+        ischangepage: false,
+        pagearray: pageArray,
+        maxpage: maxPage,
+        currentpage: String(currentPage),
+        nextpage: String(nextPage),
+        prevpage: String(prevPage),
+        defaultnumberpage: DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE,
+    };
+
+    console.log(pageObject);
+    console.log("productList to show");
+    console.log(productListToShow);
+
+    return [pageObject, productListToShow];
 }
