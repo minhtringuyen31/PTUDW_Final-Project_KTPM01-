@@ -3,7 +3,7 @@ const connection = require('../../connectDB');
 
 let DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE = Number(6);
 let maxPage = Number(0);
-let currentPage = Number(0);
+let currentPage = Number(1);
 let productList = [];
 let currentType = undefined;
 let currentPrice = undefined;
@@ -26,7 +26,7 @@ exports.getAllProductList = async (inputQuery) => {
 
     //Query a new product list
     const poolPromise = connection.promise();
-    const [rows, fields] = await poolPromise.query('SELECT product.idProduct, product.productName, product.productImage, product.productType, product.productPrice, product.releaseDate, product.rating FROM product');
+    const [rows, fields] = await poolPromise.query('SELECT product.idProduct, product.productName, productImage, productType, productPrice FROM product');
 
     productList = rows;
 
@@ -34,16 +34,26 @@ exports.getAllProductList = async (inputQuery) => {
     let productListToShow = [];
     maxPage = Number((productList.length - (productList.length % DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE)) / DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE);
 
-    for (let i = 0; i <= maxPage; i++) {
-        pageArray.push(String(i));
+    if (maxPage >= 3) {
+        if (currentPage > 1 && currentPage < maxPage + 1)
+            for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+                pageArray.push(Number(i));
+
+            }
+        else if (currentPage == 1) pageArray = [1, 2, 3];
+        else pageArray = [maxPage - 1, maxPage, maxPage + 1];
+    }
+    else {
+        for (let i = 0; i <= maxPage; i++)
+            pageArray.push(Number(i + 1));
     }
     for (let i = 0; i < DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE; i++) {
         productListToShow.push(productList[i]);
     }
 
-    currentPage = Number(0);
-    let nextPage = Number(1);
-    let prevPage = Number(0);
+    currentPage = Number(1);
+    let nextPage = Number(2);
+    let prevPage = Number(1);
 
     const pageObject = {
         ischangepage: false,
@@ -75,6 +85,8 @@ exports.getAllProductList = async (inputQuery) => {
  */
 getProductOfPage = (_page) => {
     console.log("_page in #" + _page);
+    currentPage = _page;
+    _page = _page - 1;
     if (_page < 0) {
         _page = Number(0);
     }
@@ -89,17 +101,33 @@ getProductOfPage = (_page) => {
         limit = Number(productList.length);
     }
 
-    for (let i = 0; i <= maxPage; i++) {
-        pageArray.push(String(i));
+    if (maxPage >= 3) {
+        if (currentPage > 1 && currentPage < maxPage + 1) {
+            console.log('current: ' + currentPage)
+            for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+                pageArray.push(Number(i));
+
+            }
+            console.log(pageArray)
+        }
+
+        else if (currentPage == 1) pageArray = [1, 2, 3];
+        else pageArray = [maxPage - 1, maxPage, maxPage + 1];
+        //maxPage = maxPage + 1;
+    }
+    else {
+        for (let i = 0; i <= maxPage; i++)
+            pageArray.push(Number(i + 1));
     }
 
     for (let i = _page * DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE; i < limit; i++) {
         productListToShow.push(productList[i]);
     }
 
-    currentPage = Number(_page);
-    let nextPage = currentPage + 1 > maxPage ? maxPage : Number(currentPage + 1);
-    let prevPage = currentPage - 1 < 0 ? 0 : Number(currentPage - 1);
+
+
+    let nextPage = (currentPage > maxPage) ? maxPage + 1 : Number(currentPage + 1);
+    let prevPage = currentPage - 1 < 1 ? 1 : Number(currentPage - 1);
 
     const pageObject = {
         ischangepage: true,
@@ -222,9 +250,20 @@ exports.filter = async (inputQuery) => {
     let pageArray = [];
     let productListToShow = [];
 
-    for (let i = 0; i <= maxPage; i++) {
-        pageArray.push(String(i));
+    if (maxPage >= 3) {
+        if (currentPage > 1 && currentPage < maxPage + 1)
+            for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+                pageArray.push(Number(i));
+
+            }
+        else if (currentPage == 1) pageArray = [1, 2, 3];
+        else pageArray = [maxPage - 1, maxPage, maxPage + 1];
     }
+    else {
+        for (let i = 0; i <= maxPage; i++)
+            pageArray.push(Number(i + 1));
+    }
+
     for (let i = 0; i < DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE; i++) {
         productListToShow.push(productList[i]);
     }
@@ -235,8 +274,8 @@ exports.filter = async (inputQuery) => {
     currentSort = inputQuery.sort;
     currentType = inputQuery.type;
 
-    let nextPage = 1;
-    let prevPage = 0;
+    let nextPage = 2;
+    let prevPage = 1;
 
     const pageObject = {
         ischangepage: false,
