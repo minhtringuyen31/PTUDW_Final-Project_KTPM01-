@@ -53,7 +53,7 @@ exports.allProductList = async (req, res) => {
     originalUrl = originalUrl.replace(originalUrl.substring(start), "");
     start = pagingUrl.indexOf("_page");
     pagingUrl = pagingUrl.replace(pagingUrl.substring(start), "");
-  }
+  } 
 
   
   if (originalUrl.includes("sort")) { // the index of sort=... constraint is always smaller than the index of _page=... constraint.
@@ -95,20 +95,20 @@ exports.productDetail = async (req, res, next) => {
   }
   else {
     res.render('user/products/detail', { mainProduct, relativeProducts, layout: 'layout.hbs' });
-  }
+  } 
 }
 
 
-exports.getProductOfPage = (req, res, next) =>
-{
-  console.log("get product of page");
-  console.log(req.query);
-  if(req.query._page)
-  {
-    return productService.getProductOfPage(req.query._page)
-  }
-  else
-  {
-    next;
-  }
-} 
+// exports.getProductOfPage = (req, res, next) =>
+// {
+//   console.log("get product of page");
+//   console.log(req.query);
+//   if(req.query._page)
+//   {
+//     return productService.getProductOfPage(req.query._page)
+//   }
+//   else
+//   { 
+//     next;
+//   }
+// }

@@ -3,7 +3,7 @@ const connection = require('../../connectDB');
 
 let DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE = Number(6);
 let maxPage = Number(0);
-let currentPage = Number(0);
+let currentPage = Number(1);
 let productList = [];
 let currentType = undefined;
 let currentPrice = undefined;
@@ -18,7 +18,7 @@ exports.getProductList = async (_productType) => {
 
 exports.getAllProductList = async (inputQuery) => {
 
-    if (productList.length > 0 && currentMode == 0) // the user want to change other pages
+    if(productList.length > 0 && currentMode == 0) // the user want to change other pages
     {
         console.log("get product by old List");
         return getProductOfPage(Number(inputQuery._page));
@@ -26,24 +26,34 @@ exports.getAllProductList = async (inputQuery) => {
 
     //Query a new product list
     const poolPromise = connection.promise();
-    const [rows, fields] = await poolPromise.query('SELECT product.idProduct, product.productName, product.productImage, product.productType, product.productPrice, product.releaseDate, product.rating FROM product');
-
+    const [rows, fields] = await poolPromise.query('SELECT product.idProduct, product.productName, productImage, productType, productPrice FROM product');
+    
     productList = rows;
 
     let pageArray = [];
     let productListToShow = [];
     maxPage = Number((productList.length - (productList.length % DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE)) / DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE);
 
-    for (let i = 0; i <= maxPage; i++) {
-        pageArray.push(String(i));
+    if(maxPage>=3){
+        if(currentPage>1 && currentPage< maxPage+1)
+        for (let i = currentPage-1; i <= currentPage+1; i++) {
+            pageArray.push(Number(i));
+
+        }
+        else if(currentPage==1) pageArray = [1,2,3];
+        else pageArray = [maxPage-1,maxPage,maxPage+1];
+    }
+    else {
+        for(let i=0;i<=maxPage;i++)
+            pageArray.push(Number(i+1));
     }
     for (let i = 0; i < DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE; i++) {
         productListToShow.push(productList[i]);
     }
 
-    currentPage = Number(0);
-    let nextPage = Number(1);
-    let prevPage = Number(0);
+    currentPage = Number(1);
+    let nextPage = Number(2);
+    let prevPage = Number(1);
 
     const pageObject = {
         ischangepage: false,
@@ -62,7 +72,7 @@ exports.getAllProductList = async (inputQuery) => {
     currentType = inputQuery.type;
 
     console.log(pageObject);
-    console.log("productList to show");
+    console.log("productList to show" );
     console.log(productListToShow);
     return [pageObject, productListToShow];
 };
@@ -75,6 +85,8 @@ exports.getAllProductList = async (inputQuery) => {
  */
 getProductOfPage = (_page) => {
     console.log("_page in #" + _page);
+    currentPage=_page;
+    _page=_page-1;
     if (_page < 0) {
         _page = Number(0);
     }
@@ -89,17 +101,34 @@ getProductOfPage = (_page) => {
         limit = Number(productList.length);
     }
 
-    for (let i = 0; i <= maxPage; i++) {
-        pageArray.push(String(i));
+    if(maxPage>=3){
+        if(currentPage>1 && currentPage< maxPage+1)
+        {   
+            console.log('current: '+ currentPage)
+            for (let i = currentPage-1; i <= currentPage+1; i++) {
+                pageArray.push(Number(i));
+                
+            }
+            console.log(pageArray)
+        }
+        
+        else if(currentPage==1) pageArray = [1,2,3];
+        else pageArray = [maxPage-1,maxPage,maxPage+1];
+        //maxPage = maxPage + 1;
+    }
+    else {
+        for(let i=0;i<=maxPage;i++)
+            pageArray.push(Number(i+1));
     }
 
     for (let i = _page * DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE; i < limit; i++) {
         productListToShow.push(productList[i]);
     }
 
-    currentPage = Number(_page);
-    let nextPage = currentPage + 1 > maxPage ? maxPage : Number(currentPage + 1);
-    let prevPage = currentPage - 1 < 0 ? 0 : Number(currentPage - 1);
+
+     
+    let nextPage = (currentPage  > maxPage)? maxPage+1: Number(currentPage + 1);
+    let prevPage = currentPage - 1 < 1 ? 1 : Number(currentPage - 1);
 
     const pageObject = {
         ischangepage: true,
@@ -110,13 +139,13 @@ getProductOfPage = (_page) => {
         prevpage: String(prevPage),
         defaultnumberpage: DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE,
     };
-
+   
     console.log(pageObject);
-    console.log("productList to show");
+    console.log("productList to show" );
     console.log(productListToShow);
 
     return [pageObject, productListToShow];
-
+ 
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -139,7 +168,7 @@ exports.getProductDetail = async (_productID, _productType) => {
 
 exports.filter = async (inputQuery) => {
 
-    if (productList.length > 0 && (inputQuery.keyword === currentKeyword && inputQuery.type === currentType && inputQuery.price === currentPrice && inputQuery.sort === currentSort)) // the user want to change other pages
+    if(productList.length > 0 && (inputQuery.keyword === currentKeyword && inputQuery.type === currentType && inputQuery.price === currentPrice && inputQuery.sort === currentSort)) // the user want to change other pages
     {
         console.log("get filter from old product list");
         return getProductOfPage(Number(inputQuery._page));
@@ -153,12 +182,12 @@ exports.filter = async (inputQuery) => {
         queryString = queryString + _where + " product.productName like ?";
         _where = " and ";
     }
-    if (inputQuery.type && parseInt(inputQuery.type) != 10) {
+    if (inputQuery.type && parseInt(inputQuery.type)!=10) {    
         queryPara.push(inputQuery.type);
         queryString = queryString + _where + " product.productType = ?";
         _where = " and ";
     }
-    if (inputQuery.price && parseInt(inputQuery.price) != 10) {
+    if (inputQuery.price && parseInt(inputQuery.price)!=10) {
         let _price = "";
         switch (parseInt(inputQuery.price)) {
             case 1:
@@ -166,7 +195,7 @@ exports.filter = async (inputQuery) => {
                     _price = " product.productPrice < 20000";
                     break;
                 }
-            case 2:
+            case 2:  
                 {
                     _price = " product.productPrice between 20000 and 30000";
                     break;
@@ -192,39 +221,55 @@ exports.filter = async (inputQuery) => {
                     _price = " product.productPrice > 60000";
                     break;
                 }
-
+    
         }
         queryString = queryString + _where + _price;
     }
-
-    if (inputQuery.sort) {
+    
+    if(inputQuery.sort)
+    {
         let sort_type = "";
-        if (inputQuery.sort == "hightolow") {
+        if(inputQuery.sort == "hightolow")
+        {
             sort_type = " ORDER BY product.productPrice DESC";
         }
-        else if (inputQuery.sort == "lowtohigh") {
+        else if(inputQuery.sort == "lowtohigh")
+        {
             sort_type = " ORDER BY product.productPrice ASC";
-        }
-        else if (inputQuery.sort == "newest") {
+        } 
+        else if(inputQuery.sort == "newest")
+        {
             sort_type = " ORDER BY product.releaseDate DESC";
         }
-        else if (inputQuery.sort == "bestrating") {
+        else if(inputQuery.sort == "bestrating")
+        {
             sort_type = " ORDER BY product.rating DESC";
         }
         queryString = queryString + sort_type;
     }
 
-
+    
     const poolPromise = connection.promise();
     const result = await poolPromise.query(queryString, queryPara);
     productList = result[0];
     maxPage = (productList.length - (productList.length % DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE)) / DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE;
     let pageArray = [];
     let productListToShow = [];
+    
+    if(maxPage>=3){
+        if(currentPage>1 && currentPage< maxPage+1)
+        for (let i = currentPage-1; i <= currentPage+1; i++) {
+            pageArray.push(Number(i));
 
-    for (let i = 0; i <= maxPage; i++) {
-        pageArray.push(String(i));
+        }
+        else if(currentPage==1) pageArray = [1,2,3];
+        else pageArray = [maxPage-1,maxPage,maxPage+1];
     }
+    else {
+        for(let i=0;i<=maxPage;i++)
+            pageArray.push(Number(i+1));
+    }
+
     for (let i = 0; i < DEFAULT_PRODUCT_IN_LIST_PRODUCT_PAGE; i++) {
         productListToShow.push(productList[i]);
     }
@@ -235,8 +280,8 @@ exports.filter = async (inputQuery) => {
     currentSort = inputQuery.sort;
     currentType = inputQuery.type;
 
-    let nextPage = 1;
-    let prevPage = 0;
+    let nextPage = 2;
+    let prevPage = 1;
 
     const pageObject = {
         ischangepage: false,
@@ -249,7 +294,7 @@ exports.filter = async (inputQuery) => {
     };
 
     console.log(pageObject);
-    console.log("productList to show");
+    console.log("productList to show" );
     console.log(productListToShow);
 
     return [pageObject, productListToShow];
