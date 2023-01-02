@@ -16,10 +16,11 @@ exports.signUpSchema = {
     {
         userName: {type: 'string'},
         userPhone: {type: 'string', 'minLength': 10},
+        userEmail: {type: 'string'},
         userPassword: {type: 'string', 'minLength': 8},
         userGender: {type: 'string', 'minLength': 1},
         userAddress: {type: 'string'}
     },
-    required: ['userName', 'userPhone', 'userPassword', 'userGender'],
+    required: ['userName', 'userPhone', 'userEmail','userPassword', 'userGender'],
     additionalProperties: false
 }

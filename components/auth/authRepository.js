@@ -31,19 +31,21 @@ exports.getUserAccountByPhone = async(userPhone) =>
 }
 
 
-exports.addNewUser = async(userPhone, userPassword, userName, userGender, userAddress) =>
+exports.addNewUser = async(userPhone, userPassword, userName, userGender, userAddress,userEmail) =>
 {
+    console.log("check regis: "+ userPhone+userEmail)
     const poolPromise = connection.promise();
     try
     {
         await poolPromise.query(
-            "INSERT INTO useraccount (userPhone, userPassword, userName, userGender, userAddress, userRole) \
-                VALUES (?,?,?,?,?,?)", [userPhone, userPassword, userName, userGender, userAddress, DEFAULT_ROLE_OF_NEW_MEMBER]
+            "INSERT INTO useraccount (userPhone, userPassword, userName, userGender, userAddress, userRole,userEmail) \
+                VALUES (?,?,?,?,?,?,?)", [userPhone, userPassword, userName, userGender, userAddress, DEFAULT_ROLE_OF_NEW_MEMBER,userEmail]
         );
         return true;
     }
     catch(err)
     {
+        console.log(err);
         return false;
     }
 }

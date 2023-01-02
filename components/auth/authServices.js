@@ -41,7 +41,7 @@ exports.isExistedAccount = async (userPhone) => {
 exports.register = async (reqBody) => {
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(reqBody.userPassword, salt);
-    const check = await authRep.addNewUser(reqBody.userPhone, hashPassword, reqBody.userName, reqBody.userGender, reqBody.userAddress);
+    const check = await authRep.addNewUser(reqBody.userPhone, hashPassword, reqBody.userName, reqBody.userGender, reqBody.userAddress, reqBody.userEmail);
     console.log("register: " + check);
     if (check) {
         return true;
