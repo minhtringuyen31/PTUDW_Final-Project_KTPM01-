@@ -22,6 +22,7 @@ connectTo_DB = () => {
     connection = mysql.createPool({
         host: 'db4free.net', user: 'thien123', password: 'thien123456', database: 'midterm_web123'
     });
+    console.log(connection);
 };
 
 connectTo_DB();
