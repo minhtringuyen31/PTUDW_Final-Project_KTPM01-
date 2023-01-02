@@ -4,6 +4,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const session = require('express-session');
+const hbs = require('hbs');
+
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -16,6 +18,8 @@ const customerRouter = require('./components/admin/customers');
 const manageProductRouter = require('./components/admin/products');
 const accountRouter = require('./components/user/accounts');
 
+const authApiRouter = require('./components/auth/api');
+
 
 
 const passport = require('./components/auth/passport');
@@ -25,6 +29,25 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
+
+var blocks = {};
+
+hbs.registerHelper('extend', function (name, context) {
+  var block = blocks[name];
+  if (!block) {
+    block = blocks[name] = [];
+  }
+
+  block.push(context.fn(this)); // for older versions of handlebars, use block.push(context(this));
+});
+
+hbs.registerHelper('block', function (name) {
+  var val = (blocks[name] || []).join('\n');
+
+  // clear the block
+  blocks[name] = [];
+  return val;
+});
 
 app.use(session({
   secret: 'very secret keyboard cat',
@@ -42,7 +65,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(function (req, res, next) {
-  console.log("res.user");
+  // console.log("res.user");
   console.log(req.user);
   res.locals.user = req.user;
   next();
@@ -60,11 +83,9 @@ app.use('/customer', customerRouter);
 app.use('/manageProduct', manageProductRouter)
 app.use('/account', accountRouter);
 
-//passport
 
-
-
-// app.use(passport.initialize());
+//API
+app.use('/api/auth', authApiRouter);
 
 
 

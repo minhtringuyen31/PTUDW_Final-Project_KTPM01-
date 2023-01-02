@@ -19,20 +19,23 @@
                 </div>
                 <div class="field space">
                     <span class="fa fa-user"></span>
-                    <input type="text" required placeholder="user phone" name="userPhone" />
+                    <input type="text" id="userPhone" required placeholder="user phone" name="userPhone" />
                 </div>
-                {{#if error}}
-                <div class="error">{{error.phone}}</div>
-                {{/if}}
+                <div class="error" id="error-phone-number-existed" style="display: none">Phone Number existed!</div>
+                <div class="success" id="success-email" style="display: none">Phone Number available</div>
+                {{!-- {{#if error}}
+                <div class="error">{{error}}</div>
+                {{/if}} --}}
                 <div class="field space">
                     <span class="fa fa-lock"></span>
                     <input type="password" class="pass-key" required placeholder="Password" name="userPassword"
                         id="pass" />
                     <div class="show">SHOW</div>
                 </div>
-                {{#if error}}
+
+                {{!-- {{#if error}}
                 <div class="error">{{error.pass}}</div>
-                {{/if}}
+                {{/if}} --}}
                 <div class="field space">
                     <span class="fa fa-lock"></span>
                     <input type="password" class="pass-key" required placeholder="Confirm Password" id="confirmPass" />
@@ -71,6 +74,28 @@
             </div>
         </div>
     </div>
+
+    {{#extend "scripts"}}
+    <script>
+        $(document).ready(function () {
+            $('#userPhone').click(function () {
+                console.log("ajax");
+                $.getJSON('/api/auth/verify-phone-number/' + $(this).val(), function (data) {
+                    if (data) {
+                        $('#error-phone-number-existed').hide();
+                        $('#success-phone-number').show();
+
+                    } else {
+                        $('#error-phone-number-existed').show();
+                        $('#success-phone-number').hide();
+
+                    }
+                });
+            });
+        });
+    </script>
+    {{/extend}}
+
     <script>
         const pass_field = document.querySelector(".pass-key");
         const showBtn = document.querySelector(".show");
