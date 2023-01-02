@@ -23,6 +23,16 @@ router.post('/editAvatar', upload.single("image"), accountController.updateAvata
 //     res.render('indexFrontEnd');
 // });
 
+// router.post('/login', passport.authticate('local', {
+//   successRedirect: '/index',
+//   failureRedirect: '/account/login' 
+// }));
+
+router.post('/editProfile', accountController.updateProfile);
+
+// router.post('editAvatar', upload.single("image"), (req, res) => {
+//     res.render('indexFrontEnd');
+// });
 
 
 router.get('/editProfile', function (req, res, next) {
@@ -34,16 +44,9 @@ router.get('/editAvatar', function (req, res, next) {
     res.render('user/accounts/editAvatar');
 });
 
-// router.post('/login', passport.authticate('local', {
-//   successRedirect: '/index',
-//   failureRedirect: '/account/login' 
-// }));
-
-router.post('/editProfile', accountController.updateProfile);
-
-// router.post('editAvatar', upload.single("image"), (req, res) => {
-//     res.render('indexFrontEnd');
-// });
+router.get('/editPassword', function (req, res, next) {
+    res.render('user/accounts/editPassword');
+});
 
 
 module.exports = router;
