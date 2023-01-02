@@ -35,7 +35,6 @@ exports.signup = async (req, res, next) => {
         return;
     }
     else {
-
         authService.register(req.body);
         const transporter = nodemailer.createTransport({
             service: "gmail",
