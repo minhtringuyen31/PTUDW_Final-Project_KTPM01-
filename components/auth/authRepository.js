@@ -11,7 +11,9 @@ const DEFAULT_ROLE_OF_NEW_MEMBER = 1;
 exports.isExistedPhoneNumber = async(userPhone) =>
 {
     const poolPromise = connection.promise();
+    
     const [user, fields] = await poolPromise.query("SELECT useraccount.userPhone from useraccount WHERE useraccount.userPhone = ? LIMIT 1", [userPhone]);
+    
     return user.length > 0;
 }
 

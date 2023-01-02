@@ -23,16 +23,19 @@ exports.signup = async (req, res, next) => {
     const reqBody = req.body;
     //check format
     if (authService.checkSignUpFormat(req.body) === false) {
+
         res.render('auth/signUp', { layout: false, error: { phone: "Phone number must be 10 characters", pass: "password must be more than 8 characters! " } });
         return;
     }
     //after checking format, check if the phone number has already existed
-    const check2 = await authService.isExistedAccount(req.body);
+    const check2 = await authService.isExistedAccount(req.body.userPhone);
     if (check2 == true) {
+
         res.render('auth/signup', { layout: false, error: { phone: "The phone number was registered.", pass: null } });
         return;
     }
     else {
+
         authService.register(req.body);
         const transporter = nodemailer.createTransport({
             service: "gmail",

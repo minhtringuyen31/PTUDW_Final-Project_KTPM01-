@@ -29,6 +29,7 @@ exports.checkSignUpFormat = (reqBody) => {
 }
 
 exports.isExistedAccount = async (userPhone) => {
+    
     const check = await authRep.isExistedPhoneNumber(userPhone);
     if (check) {
         return true;
