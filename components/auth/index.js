@@ -28,8 +28,13 @@ router.post('/signup', authController.signup);
 
 router.get('/logout', authController.logout);
 
-// router.get('/forgotPassword', function(req, res){
-//   res.render('auth/fogotPassword',{layout: false});
-// });
+router.get('/forgotPassword', function (req, res) {
+  res.render('auth/fogotPassword', { layout: false });
+});
 
+router.get('/forgotPassword/:email', authController.showResetPasswordForm)
+
+router.post('/forgotPassword', authController.forgotPassword);
+
+router.post('/resetPassword', authController.resetPassword)
 module.exports = router;

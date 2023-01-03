@@ -17,12 +17,14 @@ const authRouter = require('./components/auth');
 const customerRouter = require('./components/admin/customers');
 const manageProductRouter = require('./components/admin/products');
 const accountRouter = require('./components/user/accounts');
+const cartRouter = require('./components/user/cart');
 
 const authApiRouter = require('./components/auth/api');
 
 
 
 const passport = require('./components/auth/passport');
+
 
 const app = express();
 
@@ -82,6 +84,7 @@ app.use('/dashboard', dashboardRouter);
 app.use('/customer', customerRouter);
 app.use('/manageProduct', manageProductRouter)
 app.use('/account', accountRouter);
+app.use('/cart', cartRouter);
 
 
 //API

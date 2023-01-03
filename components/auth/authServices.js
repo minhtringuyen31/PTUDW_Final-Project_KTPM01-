@@ -29,8 +29,19 @@ exports.checkSignUpFormat = (reqBody) => {
 }
 
 exports.isExistedAccount = async (userPhone) => {
-    
+
     const check = await authRep.isExistedPhoneNumber(userPhone);
+    if (check) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+exports.checkExistedAccountByEmail = async (email) => {
+    const check = await authRep.isExistedEmail(email);
+    console.log("vo check");
     if (check) {
         return true;
     }
