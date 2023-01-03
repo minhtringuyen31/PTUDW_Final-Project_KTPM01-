@@ -43,7 +43,7 @@
                         </span>
                     </div>
                 </div>
-                <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
+                <button class="btn btn-primary btn-outline-primary" id="{{idProduct}}">Add to cart</button>
             </div>
         </div>
     </div>
@@ -68,7 +68,7 @@
                             <h3><a href="detail?idprod={{idProduct}}&type={{productType}}">{{productName}}</a></h3>
                             <p>A small river named Duden flows by their place and supplies</p>
                             <p class="price"><span>{{productPrice}} VND</span></p>
-                            <p><a href="#" class="btn btn-primary btn-outline-primary">Add to Cart</a></p>
+                            <button class="btn btn-primary btn-outline-primary" id="{{idProduct}}">Add to cart</button>
                         </div>
                     </div>
                 </div>
@@ -111,3 +111,23 @@
     </section>
 
 </div>
+
+
+{{#extend "scripts"}}
+<script>
+	
+	$(function()
+		{
+			$('button.btn').click(function()
+			{
+				console.log("script id: ")
+				let id = $(this).attr("id");
+				$.get('/cart/add-to-cart/' + id, function(data)
+				{
+					
+				})
+			})	
+		})	
+
+</script>
+{{/extend}}

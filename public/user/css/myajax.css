@@ -1,0 +1,15 @@
+.remove-cart-button
+{
+    width: 80px;
+    height: 80px;
+    border-radius: 10%;
+    background-color: transparent;
+    border-color: gold;
+    border-width: 10px;
+}
+
+.remove-cart-button:hover
+{
+    background: gold;
+    border-color: whitesmoke;
+}
