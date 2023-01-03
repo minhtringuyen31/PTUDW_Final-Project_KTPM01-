@@ -30,6 +30,36 @@ exports.updateAvatar = async (currentUser, fileImageName) => {
         console.log("Query Update profile: " + currentUser + "   Image " + fileImageName);
         await poolPromise.query('UPDATE useraccount SET useraccount.avatar = ? WHERE useraccount.userPhone = ?', [fileImageName, currentUser]);
         console.log("Update Avatar Successfully");
+        return true;
+    }
+    catch (err) {
+        console.log(err);
+        return false;
+    }
+}
+
+exports.getPasswordByPhoneNumber = async (phoneNumber) => {
+    const poolPromise = connection.promise();
+    try {
+        const password = await poolPromise.query(
+            "SELECT useraccount.userPassword FROM useraccount WHERE useraccount.userPhone = ? LIMIT 1", [phoneNumber]
+        );
+        console.log("dfs: " + password);
+        let pw = password[0][0].userPassword;
+        return pw;
+    }
+    catch (err) {
+        console.log(err);
+        return;
+    }
+}
+exports.updatePassword = async (phoneNumber, password) => {
+    const poolPromise = connection.promise();
+    try {
+        await poolPromise.query(
+            "UPDATE useraccount SET useraccount.userPassword = ? WHERE useraccount.userPhone = ?", [password, phoneNumber]
+        );
+        return true;
     }
     catch (err) {
         console.log(err);

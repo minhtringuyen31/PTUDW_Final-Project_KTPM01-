@@ -44,9 +44,13 @@ router.get('/editAvatar', function (req, res, next) {
     res.render('user/accounts/editAvatar');
 });
 
-router.get('/editPassword', function (req, res, next) {
+router.get('/editPassword', function (req, res) {
+    console.log('editpassword router123');
     res.render('user/accounts/editPassword');
+    console.log('editpassword router');
 });
 
+router.post('/editPassword', accountController.updatePassword);
 
-module.exports = router;
+
+module.exports = router; 

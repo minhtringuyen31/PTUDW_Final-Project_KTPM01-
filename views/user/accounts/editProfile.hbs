@@ -23,108 +23,93 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body p-0">
-                    <div class="iq-edit-list usr-edit">
-                        <ul class="iq-edit-profile d-flex nav nav-pills">
-                            <li class="col-lg-6 p-0">
-                                <a class="nav-link active" data-toggle="pill" href="#personal-information">
-                                    Personal Information
-                                </a>
-                            </li>
-                            <li class="col-lg-6 p-0">
-                                <a class="nav-link" data-toggle="pill" href="#chang-pwd">
-                                    Change Password
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <div class="tab-content">
             <div class="tab-pane fade active show" id="personal-information" role="tabpanel">
                 <div class="container rounded mt-5 mb-5 editProfile">
                     <div class="row">
-                        <div class="col-md-6 border-right">
+                        <div class="col-md-8 border-right">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                                 <img class="rounded-circle mt-5" width="150px"
-                                    src="/images/avatar/{{user.loginAvatar}}">
+                                    src="/images/avatar/{{user.loginAvatar}}">`
                                 <a href="/account/editAvatar">Edit Avatar</a>
                                 <span class="font-weight-bold">{{user.loginName}}</span>
-                                <span class="text-white-50">edogaru@mail.com.my</span>
-
-                                </span>
+                                <span class="text-white-50">{{user.loginEmail}}</span>
+                                <a href="/account/editPassword">
+                                    <div class="text-center"><button class="btn btn-primary profile-button">Change
+                                            Password</button></div>
+                                </a>
                             </div>
+
+                            </span>
                         </div>
-                        <div class="col-md-6 ">
-                            <div class="p-3 py-5">
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <h4 class="text-right">Profile Settings</h4>
+                    </div>
+                    <div class="col-md-6 ">
+                        <div class="p-3 py-5">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="text-right">Profile Settings</h4>
+                            </div>
+                            <form method="post">
+
+                                <div class="row mt-3">
+                                    <div class="col-md-12"><label class="labels"></label>Full Name<input type="text"
+                                            name="nameEdit" class="form-control" value="{{user.loginName}}"></div>
+
                                 </div>
-                                <form method="post">
-
-                                    <div class="row mt-3">
-                                        <div class="col-md-12"><label class="labels"></label>Full Name<input type="text"
-                                                name="nameEdit" class="form-control" value="{{user.loginName}}"></div>
-
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <label class="labels">Mobile Number</label>
+                                        <input type="text" class="form-control" name="phoneEdit"
+                                            value="{{user.loginPhone}}">
                                     </div>
-                                    <div class="row mt-3">
-                                        <div class="col-md-12">
-                                            <label class="labels">Mobile Number</label>
-                                            <input type="text" class="form-control" name="phoneEdit"
-                                                value="{{user.loginPhone}}">
-                                        </div>
-                                        <div class="col-md-12"><label class="labels">Address</label><input type="text"
-                                                class="form-control" name="addressEdit" value="{{user.loginAddress}}">
-                                        </div>
-                                        {{!-- <div class="col-md-12"><label class="labels">Email</label><input
-                                                type="text" class="form-control" placeholder="enter email" value="">
-                                        </div>
+                                    <div class="col-md-12"><label class="labels">Address</label><input type="text"
+                                            class="form-control" name="addressEdit" value="{{user.loginAddress}}">
                                     </div>
-                                    <div class="row mt-3">
-                                        <div class="col-md-6"><label class="labels">Country</label><input type="text"
-                                                class="form-control" placeholder="country" value="">
-                                        </div>
-                                        <div class="col-md-6"><label class="labels">State/Region</label><input
-                                                type="text" class="form-control" value="" placeholder="state">
-                                        </div>
-                                    </div>--}}
-                                    <div class="mt-5 text-center"><button class="btn btn-primary profile-button"
-                                            type="submit">Save
-                                            Profile</button></div>
-                            </div>
-
-                            </form>
-
+                                    {{!-- <div class="col-md-12"><label class="labels">Email</label><input type="text"
+                                            class="form-control" placeholder="enter email" value="">
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6"><label class="labels">Country</label><input type="text"
+                                            class="form-control" placeholder="country" value="">
+                                    </div>
+                                    <div class="col-md-6"><label class="labels">State/Region</label><input type="text"
+                                            class="form-control" value="" placeholder="state">
+                                    </div>
+                                </div>--}}
+                                <div class="mt-5 text-center"><button class="btn btn-primary profile-button"
+                                        type="submit">Save
+                                        Profile</button></div>
                         </div>
+
+                        </form>
+
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade " id="chang-pwd" role="tabpanel">
-                <div class="col-lg-5">
-                    <div class="container rounded mt-5 mb-5 editProfile">
-                        <div class="p-3 py-5">
-                            <div class="row ">
-                                <label class="labels">Current Password:</label>
-                                <input type="text" class="form-control" placeholder="enter current password" value="">
-                                <label class="labels">New Password:</label>
-                                <input type="text" class="form-control" placeholder="enter new password" value="">
-                                <label class="labels">Vertify Password</label>
-                                <input type="text" class="form-control" placeholder="enter againt new password"
-                                    value="">
-                                <button type="submit" class="btn btn-primary mr-2">
-                                    Submit
-                                </button>
-                                <button type="reset" class="btn iq-bg-danger">
-                                    Cancel
-                                </button>
-                            </div>
+        </div>
+        <div class="tab-pane fade " id="chang-pwd" role="tabpanel">
+            <div class="col-lg-5">
+                <div class="container rounded mt-5 mb-5 editProfile">
+                    <div class="p-3 py-5">
+                        <div class="row ">
+                            <label class="labels">Current Password:</label>
+                            <input type="text" class="form-control" placeholder="enter current password" value="">
+                            <label class="labels">New Password:</label>
+                            <input type="text" class="form-control" placeholder="enter new password" value="">
+                            <label class="labels">Vertify Password</label>
+                            <input type="text" class="form-control" placeholder="enter againt new password" value="">
+                            <button type="submit" class="btn btn-primary mr-2">
+                                Submit
+                            </button>
+                            <button type="reset" class="btn iq-bg-danger">
+                                Cancel
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </section>
