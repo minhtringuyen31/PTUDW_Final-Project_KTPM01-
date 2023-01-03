@@ -28,4 +28,8 @@ router.post('/signup', authController.signup);
 
 router.get('/logout', authController.logout);
 
+// router.get('/forgotPassword', function(req, res){
+//   res.render('auth/fogotPassword',{layout: false});
+// });
+
 module.exports = router;

@@ -37,20 +37,19 @@ exports.signup = async (req, res, next) => {
     else {
         authService.register(req.body);
         const transporter = nodemailer.createTransport({
-            service: "gmail",
-            host: "smtp.gmail.com",
+            service: "hotmail",
             auth: {
-                user: "coldbrew.thebestcoffee@gmail.com",
-                pass: "123456@#"
+                user: "coldbrew.thebestcoffee@outlook.com",
+                pass: "coldbrewcoffee"
             }
-        });
+        })
 
         const options = {
-            from: "coldbrew.thebestcoffee@gmail.com",
-            to: "minhtri.nguyenvo31@gmail.com",
+            from: "coldbrew.thebestcoffee@outlook.com",
+            to: req.body.userEmail,
             subject: "Active account",
             text: "Sign up successfully!!!"
-        };
+        }
 
         transporter.sendMail(options, function (err, info) {
             if (err) {
