@@ -32,9 +32,9 @@
                             </tr>
                         </thead>
                         <tbody id="where-you-place-product-list">
-                           {{!----------------------template block -------------------------------------- --}}
+                            {{!----------------------template block -------------------------------------- --}}
 
-                           {{!----------------------template block -------------------------------------- --}}
+                            {{!----------------------template block -------------------------------------- --}}
                         </tbody>
                     </table>
                 </div>
@@ -62,7 +62,8 @@
                         <span id="total-price"></span>VND
                     </p>
                 </div>
-                <p class="text-center"><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a>
+                <p class="text-center"><a href="/cart/checkout" class="btn btn-primary py-3 px-4">Proceed to
+                        Checkout</a>
                 </p>
             </div>
         </div>
@@ -160,37 +161,30 @@
 
 
 <script>
-    function loadCart()
-    {
-        $.getJSON('/cart/cart-detail', function(data)
-        {
+    function loadCart() {
+        $.getJSON('/cart/cart-detail', function (data) {
             var source = $('#product-template').html();
             var template = Handlebars.compile(source);
             var html = template(data);
             $('#where-you-place-product-list').html(html);
-            
+
             let len = data.detail.length;
-            if(len == 0)
-            {
+            if (len == 0) {
                 document.getElementById('Subtotal').innerHTML(0);
                 document.getElementById('total-price').innerHTML(0);
             }
-            else
-            {
+            else {
                 let totalPrice = Number(0);
-                for(let i =0; i< len; ++i)
-                {
+                for (let i = 0; i < len; ++i) {
                     totalPrice += Number(data.detail[i].total);
                 }
                 $('#Subtotal').html(totalPrice);
                 $('#total-price').html(totalPrice);
             }
 
-            $('.remove-cart-button').click(function(event)
-            {
+            $('.remove-cart-button').click(function (event) {
                 let removeId = $(this).attr("id");
-                $.get('/cart/remove/'+ removeId, function()
-                { 
+                $.get('/cart/remove/' + removeId, function () {
                     event.preventDefault();
                 })
                 loadCart();
