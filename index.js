@@ -53,9 +53,12 @@ hbs.registerHelper('block', function (name) {
 
 app.use(session({
   secret: 'very secret keyboard cat',
-  resave: false,
-  saveUninitialized: false,
+  resave: true,
+  saveUninitialized: true,
+  cookie: { maxAge: 7200000 }
 }))
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(passport.authenticate('session'));
 

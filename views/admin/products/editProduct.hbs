@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <title>Add New Product</title>
+      <title>Edit Product</title>
       
       <!-- Favicon -->
       <link rel="shortcut icon" href="/admin/images/favicon.ico" />
@@ -26,20 +26,20 @@
      <div class="content-page">
       <div class="container-fluid">
          <div class="row">
-             <form action="/manageProduct/list" method="POST" enctype="multipart/form-data">
+             <form action="/manageProduct/editProduct/{{product.idProduct}}" method="POST" >
                <div class="col-xl-3 col-lg-4">
                   <div class="card">
                      <div class="card-header d-flex justify-content-between">
                         <div class="header-title">
-                           <h4 class="card-title">Add New Product</h4>
+                           <h4 class="card-title">Edit Product</h4>
                         </div>
                      </div>
                      <div class="card-body">
                         <div class="crm-profile-img-edit position-relative">
-                           <img class="crm-profile-pic rounded avatar-100" src="/images/newProduct.jpg" alt="profile-pic">
+                           <img class="crm-profile-pic rounded avatar-100" src="{{product.productImage}}" alt="profile-pic">
                         </div>
                      
-                        <input  type="file"    name="files" multiple>
+                        {{!-- <input  type="file"    name="files" multiple> --}}
                         
                     
                         
@@ -58,21 +58,22 @@
                      <div class="card-body">
                         <div class="new-user-info">
                            
+                                 <input type="text" value = '{{product.idProduct}}' name="idProduct" hidden="true">
                               <div class="row">
                                  <div class="form-group col-md-12">
                                     <label for="fname">Product Name</label>
-                                    <input type="text" class="form-control" id="fname" placeholder="Product Name" name="productName">
+                                    <input type="text" value = '{{product.productName}}'class="form-control" id="fname" placeholder="Product Name" name="productName">
                                  </div>
                                  
                                  <div class="form-group col-md-12">
                                     <label for="add1">Price</label>
-                                    <input type="text" class="form-control" id="add1" placeholder="Price" name="productPrice">
+                                    <input type="text" value = '{{product.productPrice}}' class="form-control" id="add1" placeholder="Price" name="productPrice">
                                  </div>
                                  
-                                
+                                 
                                  <div class="form-group col-md-12">
                                     <label for="cname">Release Date</label>
-                                    <input type="text" class="form-control" id="cname" placeholder="Release Date" name="productReleaseDate">
+                                    <input type="text" value = '{{product.releaseDate}}' readonly="true" class="form-control" id="cname" placeholder="Release Date" name="productReleaseDate">
                                  </div>
                               </div>
                            </div>
@@ -83,7 +84,7 @@
                             
                               
                               
-                              <button type="submit" class="btn btn-primary" style="margin-left: 20px;">Add New Product</button>
+                              <button type="submit" class="btn btn-primary" style="margin-left: 20px;">Save</button>
                    </form>
                         </div>
                      </div>
@@ -117,5 +118,8 @@
     {{!-- <script src="/admin/js/app.js"></script> --}}
     
     <script src="/admin/vendor/moment.min.js"></script>
+
+
+
   </body>
 </html>
