@@ -20,7 +20,7 @@ passport.use(new LocalStrategy({ usernameField: 'account' }, async function veri
 
 passport.serializeUser(function (user, cb) {
     process.nextTick(function () {
-        cb(null, { loginPhone: user.userPhone, loginName: user.userName, loginGender: user.userGender, loginAddress: user.userAddress, loginAvatar: user.avatar });
+        cb(null, { loginPhone: user.userPhone, loginName: user.userName, loginGender: user.userGender, loginAddress: user.userAddress, loginAvatar: user.avatar, loginRole: user.userRole });
     });
 });
 
@@ -30,4 +30,4 @@ passport.deserializeUser(function (user, cb) {
     });
 });
 
-module.exports = passport;
+module.exports = passport; 

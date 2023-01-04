@@ -61,7 +61,7 @@ exports.signup = async (req, res, next) => {
             console.log("Sent: " + info.response);
         })
 
-        res.redirect("auth/logIn");
+        res.redirect('/auth/logIn');
     }
 
 }

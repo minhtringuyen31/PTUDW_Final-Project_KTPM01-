@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const accountController = require('./accountController');
 
 
 router.get('/admin', function (req, res, next) {
@@ -24,5 +25,7 @@ router.get('/profile', function (req, res) {
 router.get('/editAdminProfile', function (req, res) {
   res.render('admin/accounts/editAminProfile', { layout: "layoutAdmin" });
 });
+
+router.post('/editAdminProfile', accountController.editAdminProfile);
 
 module.exports = router;
