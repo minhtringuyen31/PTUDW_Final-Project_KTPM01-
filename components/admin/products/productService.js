@@ -14,10 +14,23 @@ exports.add = async(body,files) =>{
     let count =await poolPromise.query(query);
      count=count[0][0].cc+30;
     let id ='00'+count.valueOf() ;
-    let addQuery = "insert into product (idProduct,productName,productType,productImage,productPrice,releaseDate) values (?,?,?,?,?,?)";
+    
+    if(files && files!=null && files.length>0){
+        console.log(files[0])
     let p = files[0].path.replace("public",'');
+    let addQuery = "insert into product (idProduct,productName,productType,productImage,productPrice,releaseDate) values (?,?,?,?,?,?)";
+    console.log(p)
     let date = new Date();
     let addNew = await poolPromise.query(addQuery, [id,body.productName,'0',p,body.productPrice,date]);
+    }
+    else{
+    
+    let addQuery = "insert into product (idProduct,productName,productType,productPrice,releaseDate) values (?,?,?,?,?)";
+    
+    let date = new Date();
+    let addNew = await poolPromise.query(addQuery, [id,body.productName,'0',body.productPrice,date]);
+    }
+    
 }
 exports.getProductById = async(idProduct) =>{
     let id = '';
