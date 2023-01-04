@@ -17,7 +17,7 @@ exports.cartDetails = async(_userPhone) =>
     let check = await cartRepository.hasCart(_userPhone);
     if(check === false) 
     {
-        return [];
+        return []; 
     }
     return await cartRepository.getCartDetail(_userPhone);
 }

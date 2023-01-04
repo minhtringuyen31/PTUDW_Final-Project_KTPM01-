@@ -166,19 +166,21 @@ exports.removeProductInCart = async(userPhone, idProduct) =>
 }
 
 
-exports.getCartDetail = async(usePhone) =>
+exports.getCartDetail = async(userPhone) =>
 {
     try
     {
         const poolPromise = connection.promise();
         const res = await poolPromise.query('SELECT product.idProduct, product.productName , productPrice, quantity, product.productImage, productPrice*quantity AS "total"\
-        FROM useraccount JOIN product_in_cart ON (useraccount.userPhone = product_in_cart.idCart)\
-        JOIN product ON (product_in_cart.idProduct = product.idProduct)')
+        FROM useraccount JOIN product_in_cart ON (useraccount.userPhone = ? AND useraccount.userPhone = product_in_cart.idCart)\
+        JOIN product ON (product_in_cart.idProduct = product.idProduct)',[userPhone]);
+        console.log("cartDetail: " + res[0]);
         return res[0];
     }
     catch(e)
     {
         console.log(e)
+        return [];
     }
 }
 

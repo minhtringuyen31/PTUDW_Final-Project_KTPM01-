@@ -14,7 +14,7 @@ exports.showCart = (req, res) =>
 }
  
 exports.addToCart = async(req, res) =>
-{
+{ 
     const idProduct = req.params.idProduct; 
     console.log("userPhone: " + req.user.loginPhone);
     console.log("idProduct: " + req.params.idProduct);
@@ -77,7 +77,7 @@ exports.addOrder = async(req, res) =>
         console.log(newestOrder);
 
         await cartService.addListTo_ProductOrder(newestOrder); //add products to `order` table and `orderproduct` table -> remove all current product from `cart` table
-        res.redirect('/account/editProfile');
+        res.redirect('/user/order');
     }
     else
     {
