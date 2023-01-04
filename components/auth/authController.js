@@ -41,13 +41,15 @@ exports.signup = async (req, res, next) => {
         const transporter = nodemailer.createTransport({
             service: "hotmail",
             auth: {
-                user: "coldbrew.thebestcoffee@outlook.com",
-                pass: "coldbrewcoffee"
+                // user: "coldbrew.thebestcoffee@outlook.com",
+                // pass: "coldbrewcoffee"
+                user: "thebestcoffee.coldbrew@outlook.com",
+                pass: "coldbrew@#"
             }
         })
 
         const options = {
-            from: "coldbrew.thebestcoffee@outlook.com",
+            from: "thebestcoffee.coldbrew@outlook.com",
             to: req.body.userEmail,
             subject: "Active account",
             text: "Sign up successfully!!!"
@@ -93,25 +95,27 @@ exports.forgotPassword = async (req, res) => {
         const transporter = nodemailer.createTransport({
             service: "hotmail",
             auth: {
-                user: "coldbrew.thebestcoffee@outlook.com",
-                pass: "coldbrewcoffee"
+                // user: "coldbrew.thebestcoffee@outlook.com",
+                // pass: "coldbrewcoffee"
+                user: "thebestcoffee.coldbrew@outlook.com",
+                pass: "coldbrew@#"
             }
         })
 
-        // const options = {
-        //     from: "coldbrew.thebestcoffee@outlook.com",
-        //     to: email,
-        //     subject: "Reset Password",
-        //     text: `<a href="${process.env.APP_URL}/password/reset/${email}?token=${hashedEmail}"> Reset Password </a>`
-        // }
-        // transporter.sendMail(options, function (err, info) {
-        //     if (err) {
-        //         console.log(err);
-        //         return;
-        //     }
-        //     console.log("Sent: " + info.response);
-        console.log(`${process.env.APP_URL}/auth/forgotPassword/${email}?token=${hashedEmail}`);
-        // })
+        const options = {
+            from: "thebestcoffee.coldbrew@outlook.com",
+            to: email,
+            subject: "Reset Password",
+            text: `${process.env.APP_URL}/auth/forgotPassword/${email}?token=${hashedEmail}`
+        }
+        transporter.sendMail(options, function (err, info) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            console.log("Sent: " + info.response);
+            console.log(`${process.env.APP_URL}/auth/forgotPassword/${email}?token=${hashedEmail}`);
+        })
         res.redirect('/auth/forgotPassword?status=success');
     }
 }
