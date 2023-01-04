@@ -15,6 +15,8 @@ const productRouter = require('./components/user/products');
 const dashboardRouter = require('./components/admin');
 const authRouter = require('./components/auth');
 const customerRouter = require('./components/admin/customers');
+const accountAdminRouter = require('./components/admin/accounts');
+
 const manageProductRouter = require('./components/admin/products');
 const accountRouter = require('./components/user/accounts');
 const cartRouter = require('./components/user/cart');
@@ -77,6 +79,9 @@ app.use(function (req, res, next) {
   next();
 });
 
+//amin
+app.use('/adminAccount', accountAdminRouter);
+
 
 app.use('/index', indexRouter);
 app.use('/users', usersRouter);
@@ -86,7 +91,7 @@ app.use('/auth', authRouter);
 // app.use('/account_admin',accountAdminRouter);
 app.use('/dashboard', dashboardRouter);
 app.use('/customer', customerRouter);
-app.use('/manageProduct', manageProductRouter)
+app.use('/manageProduct', manageProductRouter);
 app.use('/account', accountRouter);
 app.use('/cart', cartRouter);
 app.use('/user/order', userOrder);
