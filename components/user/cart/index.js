@@ -11,4 +11,8 @@ router.get('/add-to-cart/:idProduct', controller.addToCart)
 
 router.get('/remove/:idProduct', controller.removeFromCart);
 
+router.get('/checkout', controller.showCheckOut) 
+
+router.post('/checkout', controller.addOrder);
+
 module.exports = router;
