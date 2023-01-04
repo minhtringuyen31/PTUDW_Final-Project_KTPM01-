@@ -81,17 +81,17 @@ app.use(function (req, res, next) {
 
 //amin
 app.use('/adminAccount', accountAdminRouter);
+app.use('/dashboard', dashboardRouter);
+app.use('/manageProduct', manageProductRouter);
+app.use('/customer', customerRouter);
 
 
+//customer
 app.use('/index', indexRouter);
 app.use('/users', usersRouter);
-// app.use('/students', studentRouter);
 app.use('/products', productRouter);
 app.use('/auth', authRouter);
 // app.use('/account_admin',accountAdminRouter);
-app.use('/dashboard', dashboardRouter);
-app.use('/customer', customerRouter);
-app.use('/manageProduct', manageProductRouter);
 app.use('/account', accountRouter);
 app.use('/cart', cartRouter);
 app.use('/user/order', userOrder);

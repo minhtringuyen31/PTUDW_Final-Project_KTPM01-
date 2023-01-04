@@ -14,6 +14,13 @@ router.post('/login', passport.authenticate('local', {
   failureRedirect: '/auth/login'
 }));
 
+// router.post('/adminLogin', passport.authenticate('local', {
+//   successRedirect: '/index',
+//   failureRedirect: '/auth/login'
+// }));
+
+
+
 router.get('/login', function (req, res) {
   //throw new Error('Unknown error!');
   res.render('auth/logIn', { layout: false });

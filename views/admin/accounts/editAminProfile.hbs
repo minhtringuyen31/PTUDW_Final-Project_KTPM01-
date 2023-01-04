@@ -13,7 +13,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form method="post" action="/adminAccount/editAdminProfile">
                                         <div class="form-group row align-items-center">
                                             <div class="col-md-12">
                                                 <div class="profile-img-edit">
@@ -32,38 +32,18 @@
                                             <div class="form-group col-sm-6">
                                                 <label for="fname">Fullname:</label>
                                                 <input type="text" class="form-control" id="fullname" name="fullname"
-                                                    value="Barry" />
+                                                    value={{user.loginName}} />
                                             </div>
                                             <div class="form-group col-sm-6">
                                                 <label for="cname">Phone Number</label>
                                                 <input type="text" class="form-control" id="phone" name="phone"
-                                                    value="Atlanta" />
+                                                    value="{{user.loginPhone}}" required />
                                             </div>
-                                            <div class="form-group col-sm-6">
-                                                <label for="cname">Email</label>
-                                                <input type="text" class="form-control" id="email" name="email"
-                                                    value="Atlanta" />
-                                            </div>
-                                            <div class="form-group col-sm-6">
-                                                <label class="d-block">Gender:</label>
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="customRadio6" name="customRadio1"
-                                                        class="custom-control-input" checked="" />
-                                                    <label class="custom-control-label" for="customRadio6">
-                                                        Male
-                                                    </label>
-                                                </div>
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" id="customRadio7" name="customRadio1"
-                                                        class="custom-control-input" />
-                                                    <label class="custom-control-label" for="customRadio7">
-                                                        Female
-                                                    </label>
-                                                </div>
-                                            </div>
+
                                             <div class="form-group col-sm-6">
                                                 <label for="dob">Address</label>
-                                                <input class="form-control" id="address" />
+                                                <input class="form-control" id="address" name="address"
+                                                    value={{user.loginAddress}} />
                                             </div>
 
                                             <button type="submit" class="btn btn-primary mr-2">
