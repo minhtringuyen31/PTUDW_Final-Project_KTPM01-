@@ -7,6 +7,9 @@ const customerService = require('./customerService')
 router.get('/list', function(req, res) {
     res.render('admin/customers/list',{layout: "layoutAdmin"});    
   });
+
+router.get('/list/infor', customerController.getCustomerListByPage);
+
 router.get('/orders', customerController.getProductList)
 
 module.exports = router;
