@@ -31,14 +31,14 @@
                            <th>Id</th>
                            <th>Name</th>
                            <th>Price</th>
-                           <th>Quantity</th>
+                          
                            <th>Release Date</th>
                            <th>Status</th>
                            <th style="min-width: 100px">Action</th>
                         </tr>
                      </thead>
-                     <tbody>  
-                        
+                     <tbody >  
+                      
                         {{#each products}}
                          <tr>
                            <td class="text-center"><img class="rounded img-fluid avatar-40"
@@ -48,7 +48,7 @@
                            
                            {{!-- <td><span class="badge bg-primary">In Stock</span></td> --}}
                            <td>{{productPrice}}</td>
-                           <td>10</td>
+                           
                            <td>{{releaseDate}}</td>
                            <td><span class="badge bg-primary">In Stock</span></td>
                            <td>
@@ -56,13 +56,14 @@
                                  {{!-- <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
                                     data-original-title="Add" href="#"><i class="ri-user-add-line mr-0"></i></a> --}}
                                  <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
-                                    data-original-title="Edit" href="#"><i class="ri-pencil-line mr-0"></i></a>
-                                 <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
-                                    data-original-title="Delete" href="#"><i class="ri-delete-bin-line mr-0"></i></a>
+                                    data-original-title="Edit" href="/manageProduct/editProduct/{{idProduct}}"><i class="ri-pencil-line mr-0"></i></a>
+                                 <a class="btn btn-sm bg-primary" name = "delete-btn" data-toggle="tooltip" data-placement="top" title=""
+                                    data-original-title="Delete" href="/manageProduct/remove/{{idProduct}}"><i class="ri-delete-bin-line mr-0"></i></a>
                               </div>
                            </td>
                         </tr>
                         {{/each}}
+                        
                         
                      </tbody>
                   </table>

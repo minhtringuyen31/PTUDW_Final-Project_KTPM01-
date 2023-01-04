@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CheckOut</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
+
+    <link rel="stylesheet" href="/user/css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="/user/css/animate.css">
+    
+    <link rel="stylesheet" href="/user/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/user/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/user/css/magnific-popup.css">
+
+    <link rel="stylesheet" href="/user/css/aos.css">
+
+    <link rel="stylesheet" href="/user/css/ionicons.min.css">
+
+    <link rel="stylesheet" href="/user/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="/user/css/jquery.timepicker.css">
+
+    
+    <link rel="stylesheet" href="/user/css/flaticon.css">
+    <link rel="stylesheet" href="/user/css/icomoon.css">
+    <link rel="stylesheet" href="/user/css/style.css">
+
+</head>
+
+<body data-aos-easing="slide" data-aos-duration="800" data-aos-delay="0">
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 ftco-animate fadeInUp ftco-animated">
+                    <form method="POST" id="check-out-form"
+                        class="billing-form ftco-bg-dark p-3 p-md-5">
+                        <h3 class="mb-4 billing-heading">Billing Details</h3>
+                        <div class="row align-items-end">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="fullname">Full Name:</label>
+                                    <input type="text" class="form-control" placeholder="" name="orderName" value="{{orderInfor.orderName}}" id="fullname">
+                                </div>
+                                </div>
+                            <div class="w-100"></div>
+
+                            <div class="w-100"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="shipAddress">Shipping Address:</label>
+                                    <input type="text" class="form-control" placeholder="House number and street name" name="orderAddress" value="{{orderInfor.orderAddress}}" id="shipAddress">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control"
+                                        placeholder="Appartment, suite, unit etc: (optional)">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+
+                            <div class="w-100"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="orderPhone">Phone</label>
+                                    <input type="text" class="form-control" placeholder="" name="orderPhone" value="{{orderInfor.orderPhone}}" id="orderPhone">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="orderEmail">Email Address</label>
+                                    <input type="text" class="form-control" placeholder="" name="orderEmail" value="{{orderInfor.orderEmail}}" id="orderEmail">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="totalPrice">Total (VND)</label>
+                                    <input type="number" class="form-control" placeholder="None" name="orderPrice" value="{{orderInfor.totalPrice}}" id="totalPrice">
+                                </div>
+                            </div>
+                            <div class="w-100"></div>
+                            
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="directPay">Direct</label>
+                                    <input type="radio" class="form-control" placeholder="" name="paymentMethod" value="direct" id="directPay">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="momoPay">Email Address</label>
+                                    <input type="radio" class="form-control" placeholder="" name="paymentMethod" value="momo" id="momoPay">
+                                </div>
+                            </div>
+                            {{!-- <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="orderEmail">Email Address</label>
+                                    <input type="text" class="form-control" placeholder="" name="paymentMethod" value="" id="orderEmail">
+                                </div>
+                            </div> --}}
+                        </div>
+
+                        <div class="col-md">
+                                <div class="form-group">
+                                    <input type="submit" class="form-control" id="submit" value="Place an order">
+                                </div>
+                        </div>
+                    </form><!-- END -->
+
+
+                    <div class="row mt-5 pt-3 d-flex">
+                        <div class="col-md-6 d-flex">
+                            <div class="cart-detail cart-total ftco-bg-dark p-3 p-md-4">
+                                <h3 class="billing-heading mb-4">Cart Total</h3>
+                                <p class="d-flex">
+                                    <span>Subtotal</span>
+                                    <span id="Subtotal">{{orderInfor.totalPrice}}</span> VND
+                                </p>
+                                <p class="d-flex">
+                                    <span>Delivery</span>
+                                    <span id="Delivery">0</span> VND
+                                </p>
+                                <p class="d-flex">
+                                    <span>Discount</span>
+                                    <span id="Discount">0</span> VND
+                                </p>
+                                <hr>
+                                <p class="d-flex total-price">
+                                    <span>Total</span>
+                                    <span id="total-price" >{{orderInfor.totalPrice}}</span> VND
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- .col-md-8 -->
+
+                    <div class="sidebar-box ftco-animate fadeInUp ftco-animated">
+                        <h3>Paragraph</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem
+                            necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente
+                            consectetur similique, inventore eos fugit cupiditate numquam!</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section> <!-- .section -->
+
+
+
+
+    <!-- loader -->
+    <div id="ftco-loader" class="fullscreen"><svg class="circular" width="48px" height="48px">
+            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"></circle>
+            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#F96D00"></circle>
+        </svg></div>
+
+
+    <script src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/jquery.min.js.tải xuống"></script>
+    <script src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/jquery-migrate-3.0.1.min.js.tải xuống"></script>
+    <script src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/popper.min.js.tải xuống"></script>
+    <script src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/bootstrap.min.js.tải xuống"></script>
+    <script src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/jquery.easing.1.3.js.tải xuống"></script>
+    <script src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/jquery.waypoints.min.js.tải xuống"></script>
+    <script src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/jquery.stellar.min.js.tải xuống"></script>
+    <script src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/owl.carousel.min.js.tải xuống"></script>
+    <script
+        src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/jquery.magnific-popup.min.js.tải xuống"></script>
+    <script src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/aos.js.tải xuống"></script>
+    <script src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/jquery.animateNumber.min.js.tải xuống"></script>
+    <script src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/bootstrap-datepicker.js.tải xuống"></script>
+    <script src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/jquery.timepicker.min.js.tải xuống"></script>
+    <script src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/scrollax.min.js.tải xuống"></script>
+    <script src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/js"></script>
+    <script src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/google-map.js.tải xuống"></script>
+    <script src="./Coffee - Free Bootstrap 4 Template by Colorlib_files/main.js.tải xuống"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+
+            /*
+            var quantitiy = 0;
+            $('.quantity-right-plus').click(function (e) {
+
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                var quantity = parseInt($('#quantity').val());
+
+                // If is not undefined
+
+                $('#quantity').val(quantity + 1);
+
+
+                // Increment
+
+            });
+
+            $('.quantity-left-minus').click(function (e) {
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                var quantity = parseInt($('#quantity').val());
+
+                // If is not undefined
+
+                // Increment
+                if (quantity > 0) {
+                    $('#quantity').val(quantity - 1);
+                }
+            });*/
+            /*
+            let totalPrice = $('#Subtotal').val() + Number($('#Delivery')).val() - Number($('#Discount').val());
+            $('#total-price').html(totalPrice);
+            $('#submitPrice').val('value',totalPrice);
+
+            $('#place-an-order').click(function(event)
+            {
+                $('#check-out-form').submit();
+            })*/
+        });
+
+    </script>
+
+
+
+</body>
+
+</html>

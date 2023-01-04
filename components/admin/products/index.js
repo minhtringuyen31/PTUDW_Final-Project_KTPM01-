@@ -1,16 +1,34 @@
 const express = require('express');
 const router = express.Router();
 const productController = require('./productController')
+const multer = require('multer');
+const path = require('path');
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, './public/images/product/')
+  },
+  filename: (req, file, cb) => {
+      console.log(file)
+      cb(null, Date.now() + path.extname(file.originalname))
+  }
+})
+const upload = multer({ storage: storage }).array('files',12);
 
   router.get('/list', productController.getAll)
   router.get('/add', function(req, res) {
     //throw new Error('Unknown error!');
     res.render('admin/products/add', {layout: "layoutAdmin"});
   });
-  router.post('/add',productController.add)
+  router.post('/list',upload,productController.add)
   router.get('/update/:productId', function(req, res) {
-    //throw new Error('Unknown error!');
     res.render('admin/products/list', {layout: "layoutAdmin"});
   });
+  
+  router.get('/editproduct/:idProduct', productController.edit)
+  router.post('/editproduct/:idProduct', productController.save)
+
+  router.get('/remove/:idProduct', productController.remove)
+
 
   module.exports=router;

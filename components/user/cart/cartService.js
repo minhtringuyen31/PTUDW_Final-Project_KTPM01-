@@ -15,7 +15,6 @@ const cartRepository = require('./cartRepository');
 exports.cartDetails = async(_userPhone) =>
 {
     let check = await cartRepository.hasCart(_userPhone);
-    console.log(check);
     if(check === false) 
     {
         return []; 
@@ -42,7 +41,33 @@ exports.removeFromCart = async(_userPhone, _idProduct) =>
     if(quantity === -1 || quantity === null)
     {
         console.log("NO PRODUCT IN CART");
-        return;
+        return false;
     }
     await cartRepository.removeProductInCart(_userPhone, _idProduct);
+    return true;
+}
+
+exports.addOrder = async(reqBody) =>
+{
+    if(!reqBody.orderAddress || !reqBody.orderPhone)
+    {
+        return;
+    }
+    await cartRepository.addOrder(reqBody.orderPhone, reqBody.orderAddress, reqBody.orderPrice, reqBody.paymentMethod);
+}
+
+exports.getOrderListByPhone = async(_userPhone) =>
+{
+    const res = cartRepository.getOrderListByPhone(_userPhone);
+    return res;
+}
+
+exports.addListTo_ProductOrder = async(newestOrder) =>
+{
+    const currentProductInCart = await cartRepository.get_ProductInCart_by_Phone(newestOrder.userPhone);
+    for(let i=0; i< currentProductInCart.length; i++)
+    {
+        await cartRepository.addProductOrder(newestOrder.orderId, currentProductInCart[i].idProduct, currentProductInCart[i].quantity);
+        await this.removeFromCart(newestOrder.userPhone, currentProductInCart[i].idProduct);
+    }
 }

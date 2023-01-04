@@ -20,6 +20,7 @@ const accountAdminRouter = require('./components/admin/accounts');
 const manageProductRouter = require('./components/admin/products');
 const accountRouter = require('./components/user/accounts');
 const cartRouter = require('./components/user/cart');
+const userOrder = require('./components/user/order');
 
 const authApiRouter = require('./components/auth/api');
 
@@ -55,9 +56,12 @@ hbs.registerHelper('block', function (name) {
 
 app.use(session({
   secret: 'very secret keyboard cat',
-  resave: false,
-  saveUninitialized: false,
+  resave: true,
+  saveUninitialized: true,
+  cookie: { maxAge: 7200000 }
 }))
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(passport.authenticate('session'));
 
@@ -90,6 +94,7 @@ app.use('/customer', customerRouter);
 app.use('/manageProduct', manageProductRouter);
 app.use('/account', accountRouter);
 app.use('/cart', cartRouter);
+app.use('/user/order', userOrder);
 
 
 //API
