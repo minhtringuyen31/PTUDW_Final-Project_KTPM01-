@@ -15,7 +15,9 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage }).array('files',12);
 
-  router.get('/list', productController.getAll)
+  router.get('/', productController.getAll);
+
+  router.get('/list', productController.getProductByPage);
   router.get('/add', function(req, res) {
     //throw new Error('Unknown error!');
     res.render('admin/products/add', {layout: "layoutAdmin"});

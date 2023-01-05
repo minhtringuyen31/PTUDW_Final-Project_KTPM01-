@@ -1,96 +1,137 @@
 <div class="content-page">
-<div class="container-fluid">
-   <div class="row">
-      <div class="col-sm-12">
-         <div class="card">
-            <div class="card-header d-flex justify-content-between">
-               <div class="header-title">
-                  <h4 class="card-title">Product List</h4>
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-sm-12">
+            <div class="card">
+               <div class="card-header d-flex justify-content-between">
+                  <div class="header-title">
+                     <h4 class="card-title">Product List</h4>
+                  </div>
                </div>
-            </div>
-            <div class="card-body">
-               <div class="table-responsive">
-                  <div class="row justify-content-between">
-                     <div class="col-sm-6 col-md-6">
-                        
-                     </div>
-                     <div class="col-sm-6 col-md-6">
-                        <div class="user-list-files d-flex">
-                           <a class="bg-primary" href="/manageProduct/add">
-                              Add New Product
-                           </a>
-                           
+               <div class="card-body">
+                  <div class="table-responsive">
+                     <div class="row justify-content-between">
+                        <div class="col-sm-6 col-md-6">
+
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                           <div class="user-list-files d-flex">
+                              <a class="bg-primary" href="/manageProduct/add">
+                                 Add New Product
+                              </a>
+
+                           </div>
                         </div>
                      </div>
+                     <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
+                        aria-describedby="user-list-page-info">
+                        <thead>
+                           <tr class="ligth">
+                              <th>Image</th>
+                              <th>Id</th>
+                              <th>Name</th>
+                              <th>Price</th>
+
+                              <th>Release Date</th>
+                              <th>Status</th>
+                              <th style="min-width: 100px">Action</th>
+                           </tr>
+                        </thead>
+                        <tbody id="where-to-place-template">
+
+                           {{!--place the template in here--}}
+
+
+                           {{!--place the template in here--}}
+
+                        </tbody>
+                     </table>
                   </div>
-                  <table id="user-list-table" class="table table-striped dataTable mt-4" role="grid"
-                     aria-describedby="user-list-page-info">
-                     <thead>
-                        <tr class="ligth">
-                           <th>Image</th>
-                           <th>Id</th>
-                           <th>Name</th>
-                           <th>Price</th>
-                          
-                           <th>Release Date</th>
-                           <th>Status</th>
-                           <th style="min-width: 100px">Action</th>
-                        </tr>
-                     </thead>
-                     <tbody >  
-                      
-                        {{#each products}}
-                         <tr>
-                           <td class="text-center"><img class="rounded img-fluid avatar-40"
-                                 src={{productImage}} alt="product image {{idProduct}}"></td>
-                           <td>{{idProduct}}</td>
-                           <td>{{productName}}</td>
-                           
-                           {{!-- <td><span class="badge bg-primary">In Stock</span></td> --}}
-                           <td>{{productPrice}}</td>
-                           
-                           <td>{{releaseDate}}</td>
-                           <td><span class="badge bg-primary">In Stock</span></td>
-                           <td>
-                              <div class="flex align-items-center list-user-action">
-                                 {{!-- <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
-                                    data-original-title="Add" href="#"><i class="ri-user-add-line mr-0"></i></a> --}}
-                                 <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
-                                    data-original-title="Edit" href="/manageProduct/editProduct/{{idProduct}}"><i class="ri-pencil-line mr-0"></i></a>
-                                 <a class="btn btn-sm bg-primary" name = "delete-btn" data-toggle="tooltip" data-placement="top" title=""
-                                    data-original-title="Delete" href="/manageProduct/remove/{{idProduct}}"><i class="ri-delete-bin-line mr-0"></i></a>
-                              </div>
-                           </td>
-                        </tr>
-                        {{/each}}
-                        
-                        
-                     </tbody>
-                  </table>
+                  <div class="row justify-content-between mt-3">
+                     <div id="user-list-page-info" class="col-md-6">
+                        <span>Showing 1 to 5 of 5 entries</span>
+                     </div>
+                     <div class="col-md-6">
+                        <nav aria-label="Page navigation example">
+                           <ul class="pagination justify-content-end mb-0" id="product-pagination">
+                              {{!-- <li class="page-item disabled">
+                                 <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                              </li>
+                              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                              <li class="page-item"><a class="page-link" href="#">2</a></li>
+                              <li class="page-item"><a class="page-link" href="#">3</a></li>
+                              <li class="page-item">
+                                 <a class="page-link" href="#">Next</a>
+                              </li> --}}
+                           </ul>
+                        </nav>
+                     </div>
+                  </div>
                </div>
-               {{!-- <div class="row justify-content-between mt-3">
-                  <div id="user-list-page-info" class="col-md-6">
-                     <span>Showing 1 to 5 of 5 entries</span>
-                  </div>
-                  <div class="col-md-6">
-                     <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-end mb-0">
-                           <li class="page-item disabled">
-                              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                           </li>
-                           <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                           <li class="page-item"><a class="page-link" href="#">2</a></li>
-                           <li class="page-item"><a class="page-link" href="#">3</a></li>
-                           <li class="page-item">
-                              <a class="page-link" href="#">Next</a>
-                           </li>
-                        </ul>
-                     </nav>
-                  </div>
-               </div> --}}
             </div>
          </div>
       </div>
    </div>
 </div>
+
+
+<script id="product-template" type="text/x-handlebars-template">
+\{{#each .}}
+   <tr>
+   <td class="text-center"><img class="rounded img-fluid avatar-40"
+         src=\{{productImage}} alt="product image \{{idProduct}}"></td>
+   <td>\{{idProduct}}</td>
+   <td>\{{productName}}</td>
+   
+   {{!-- <td><span class="badge bg-primary">In Stock</span></td> --}}
+   <td>\{{productPrice}}</td>
+   
+   <td>\{{releaseDate}}</td>
+   <td><span class="badge bg-primary">In Stock</span></td>
+   <td>
+      <div class="flex align-items-center list-user-action">
+         {{!-- <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
+            data-original-title="Add" href="#"><i class="ri-user-add-line mr-0"></i></a> --}}
+         <a class="btn btn-sm bg-primary" data-toggle="tooltip" data-placement="top" title=""
+            data-original-title="Edit" href="/manageProduct/editProduct/\{{idProduct}}"><i class="ri-pencil-line mr-0"></i></a>
+         <a class="btn btn-sm bg-primary" name = "delete-btn" data-toggle="tooltip" data-placement="top" title=""
+            data-original-title="Delete" href="/manageProduct/remove/\{{idProduct}}"><i class="ri-delete-bin-line mr-0"></i></a>
       </div>
+   </td>
+   </tr>
+\{{/each}}
+</script>
+
+
+<script id="pagination-template" type="text/x-handlebars-template">
+    \{{#each pagearray as |PA|}}
+    <li class="page-item active"><a class="page-link" href="#">\{{PA}}</a></li>
+    \{{/each}}
+</script>
+
+
+{{#extend "scripts"}}
+<script>
+   function loadProductPage(page) {
+      $.getJSON(`/manageProduct/list?page=${page}`, function (data) {
+         var source = $('#product-template').html();
+         var template = Handlebars.compile(source);
+         var html = template(data.listProducts);
+         $('#where-to-place-template').html(html);
+
+         /*var links = Array.from(Array(products.paging.last_page - products.paging.first_page + 1)).map((_, idx) =>
+         ({
+            pageNumber: idx + products.paging.first_page,
+         }));*/
+         var links = data.pageObject;
+         $('#product-pagination').html(Handlebars.compile($('#pagination-template').html())(links));
+         $('#product-pagination .page-link').click(function (event) {
+            event.preventDefault();
+            loadProductPage($(this).html());
+         });
+      });
+   }
+
+   loadProductPage(1);
+</script>
+{{/extend}}

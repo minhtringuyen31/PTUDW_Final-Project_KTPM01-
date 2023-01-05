@@ -1,5 +1,6 @@
 const { stringify } = require('ajv');
 const connection = require('../../connectDB');
+const DEFAULT_PRODUCTS_ONE_PAGE = 5;
 
 exports.getAllProducts = async() =>{
     let query = "select * from product";
@@ -75,4 +76,37 @@ exports.remove = async(idProduct) =>{
     let query = 'DELETE FROM product WHERE idProduct = ?';
     const poolPromise = connection.promise()
     let product = await poolPromise.query(query,[id]);
+}
+
+
+exports.getProductsByPage = async(_page) =>
+{
+    try
+    {
+        const poolPromise = connection.promise();
+        const res = await poolPromise.query(`SELECT * FROM product LIMIT ${DEFAULT_PRODUCTS_ONE_PAGE} offset ${(_page - 1) * DEFAULT_PRODUCTS_ONE_PAGE}`);
+        console.log(res[0]);
+        return res[0];
+    }
+    catch(e)
+    {
+        console.log(e);
+        return [];
+    }
+}
+
+exports.count = async() =>
+{
+    try
+    {
+        const poolPromise = connection.promise();
+        const res = await poolPromise.query('SELECT count(*) as `number` FROM product');
+        console.log("number: " + res[0][0].number);
+        return res[0][0].number;
+    }
+    catch(e)
+    {
+        console.log(e);
+        return null;
+    }
 }
