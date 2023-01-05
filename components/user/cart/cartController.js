@@ -8,7 +8,14 @@ exports.cartDetail = async (req, res) => {
 }
 
 exports.showCart = (req, res) => {
+    if(!req.user)
+    {
+        res.redirect('/auth/login');
+    }
+    else
+    {
     res.render('user/cart/cart', { layout: 'layout.hbs' });
+    }
 }
 
 exports.addToCart = async (req, res) => {
@@ -29,6 +36,12 @@ exports.removeFromCart = async (req, res) => {
 
 exports.showCheckOut = async (req, res) => {
     // if (req.params.)
+    if(!req.user)
+    {
+        res.redirect('/auth/login');
+    }
+    else
+    {
     const data = await cartService.cartDetails(req.user.loginPhone);
     let total = Number(0);
     for (let i = 0; i < data.length; ++i) {
@@ -43,9 +56,16 @@ exports.showCheckOut = async (req, res) => {
     }
     res.render('user/cart/checkout', { layout: false, orderInfor });
 }
+}
 
 // momo payment
 exports.showPaymentWithMomo = async (req, res) => {
+    if(!req.user)
+    {
+        res.redirect('/auth/login');
+    }
+    else
+    {
     const data = await cartService.cartDetails(req.user.loginPhone);
     let total = Number(0);
     for (let i = 0; i < data.length; ++i) {
@@ -59,6 +79,7 @@ exports.showPaymentWithMomo = async (req, res) => {
         totalPrice: total
     }
     res.render('user/cart/paymentWithMomo', { layout: false, orderInfor });
+}
 }
 
 exports.addOrder = async (req, res) => {

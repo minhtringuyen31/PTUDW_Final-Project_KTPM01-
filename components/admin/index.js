@@ -3,8 +3,14 @@ const router = express.Router();
 
 router.get('/', function(req, res, next) {
     //throw new Error('Unknown error!');
+    if(!req.user)
+    {
+        res.redirect('/auth/login');
+    }
+    else
+    {
     res.render('indexAdmin', {layout: "layoutAdmin"});
-    
+    }
   });
 
   router.post('/', function(req, res, next) {

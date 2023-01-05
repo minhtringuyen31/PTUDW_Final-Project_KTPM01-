@@ -6,8 +6,14 @@ const DEFAULT_PRODUCTS_ONE_PAGE = 5;
 exports.getAll = async(req,res)=>{
     // let products = await productSerice.getAllProducts();
     // res.render('admin/products/list', {layout: "layoutAdmin",products});
-
+    if(!req.user)
+    {
+        res.redirect('/auth/login');
+    }
+    else
+    {
     res.render('admin/products/list', {layout: "layoutAdmin"});
+    }
 }
 
 exports.getProductByPage = async(req,res)=>
@@ -51,16 +57,30 @@ exports.add = async(req,res)=>{
     res.redirect("/manageProduct/list")
 }
 exports.edit = async(req,res)=>{
+    if(!req.user)
+    {
+        res.redirect('/auth/login');
+    }
+    else
+    {
     let product = await productService.getProductById(req.params.idProduct);
     console.log(product)
     res.render('admin/products/editProduct',{layout:'layoutAdmin',product})
+    }
 }
 exports.save = async(req,res)=>{
-
+    
     let product = await productService.update(req.body);
     res.redirect('/manageProduct/list')
 }
 exports.remove = async(req,res)=>{
+    if(!req.user)
+    {
+        res.redirect('/auth/login');
+    }
+    else
+    {
     productService.remove(req.params.idProduct)
-    res.redirect('/manageProduct/list')
+    res.redirect('/manageProduct/list');
+    }
 }

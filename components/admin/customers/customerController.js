@@ -3,10 +3,17 @@ const DEFAULT_CUSTOMER_ONE_PAGE = Number(6);
 
 
 exports.getProductList = async(req,res) =>{
+    if(!req.user)
+    {
+        res.redirect('/auth/login');
+    }
+    else
+    {
     let orderList = await accountService.getAll();
     
     console.log(orderList);
-    res.render('admin/customers/orders',{layout: "layoutAdmin", orderList}); 
+    res.render('admin/customers/orders',{layout: "layoutAdmin", orderList});
+    }
 }
 
 exports.getCustomerListByPage = async(req, res) =>

@@ -36,18 +36,39 @@ router.post('/editProfile', accountController.updateProfile);
 
 
 router.get('/editProfile', function (req, res, next) {
+    if(!req.user)
+    {
+        res.redirect('/auth/login');
+    }
+    else
+    {
     res.render('user/accounts/editProfile');
+    }
 });
 
 router.get('/editAvatar', function (req, res, next) {
+    if(!req.user)
+    {
+        res.redirect('/auth/login');
+    }
+    else
+    {
     console.log("edit")
     res.render('user/accounts/editAvatar');
+    }
 });
 
 router.get('/editPassword', function (req, res) {
+    if(!req.user)
+    {
+        res.redirect('/auth/login');
+    }
+    else
+    {
     console.log('editpassword router123');
     res.render('user/accounts/editPassword');
     console.log('editpassword router');
+    }
 });
 
 router.post('/editPassword', accountController.updatePassword);

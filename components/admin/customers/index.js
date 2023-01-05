@@ -5,7 +5,14 @@ const customerService = require('./customerService')
 
 
 router.get('/list', function(req, res) {
+  if(!req.user)
+    {
+        res.redirect('/auth/login');
+    }
+    else
+    {
     res.render('admin/customers/list',{layout: "layoutAdmin"});    
+    }
   });
 
 router.get('/list/infor', customerController.getCustomerListByPage);

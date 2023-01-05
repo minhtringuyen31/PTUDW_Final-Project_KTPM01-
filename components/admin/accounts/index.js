@@ -19,11 +19,25 @@ router.get('/login_admin', function (req, res, next) {
 
 router.get('/profile', function (req, res) {
   //throw new Error('Unknown error!');
+  if(!req.user)
+    {
+        res.redirect('/auth/login');
+    }
+    else
+    {
   res.render('admin/accounts/adminProfile', { layout: "layoutAdmin" });
+    }
 });
 
 router.get('/editAdminProfile', function (req, res) {
+  if(!req.user)
+    {
+        res.redirect('/auth/login');
+    }
+    else
+    {
   res.render('admin/accounts/editAminProfile', { layout: "layoutAdmin" });
+    }
 });
 
 router.post('/editAdminProfile', accountController.editAdminProfile);
