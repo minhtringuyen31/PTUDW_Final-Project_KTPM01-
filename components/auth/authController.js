@@ -41,8 +41,8 @@ exports.signup = async (req, res, next) => {
         const transporter = nodemailer.createTransport({
             service: "hotmail",
             auth: {
-                // user: "coldbrew.thebestcoffee@outlook.com",
-                // pass: "coldbrewcoffee"
+                // user: "cold.brew.thebestcoffee@outlook.com",
+                // pass: "coldbrew@#"
                 user: "thebestcoffee.coldbrew@outlook.com",
                 pass: "coldbrew@#"
             }
@@ -95,8 +95,8 @@ exports.forgotPassword = async (req, res) => {
         const transporter = nodemailer.createTransport({
             service: "hotmail",
             auth: {
-                // user: "coldbrew.thebestcoffee@outlook.com",
-                // pass: "coldbrewcoffee"
+                // user: "cold.brew.thebestcoffee@outlook.com",
+                // pass: "coldbrew@#"
                 user: "thebestcoffee.coldbrew@outlook.com",
                 pass: "coldbrew@#"
             }
