@@ -202,6 +202,14 @@ i span {
 .error {
   color: red;
   border: white;
-  font-size: 20px;
+  font-size: 16px;
+  font-family: sans-serif;
+}
+
+.success 
+{
+  color: rgb(3, 189, 3);
+  border: white;
+  font-size: 16px;
   font-family: sans-serif;
 }

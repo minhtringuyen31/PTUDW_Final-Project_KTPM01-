@@ -21,14 +21,16 @@
                     <span class="fa fa-user"></span>
                     <input type="text" id="userPhone" required placeholder="user phone" name="userPhone" />
                 </div>
+                <div class="error" id="error-length-of-phone" style="display: none;">Phone Number must have 10 digits!</div>
                 <div class="error" id="error-phone-number-existed" style="display: none">Phone Number existed!</div>
-                <div class="success" id="success-email" style="display: none">Phone Number available</div>
+                <div class="error" id="error-phone-contains-char" style="display: none;">Phone can only be digits!</div>
+                <div class="success" id="success-phone-number" style="display: none">Phone Number available!</div>
                 {{!-- {{#if error}}
                 <div class="error">{{error}}</div>
                 {{/if}} --}}
                 <div class="field space">
                     <span class="fa fa-user"></span>
-                    <input type="email" required placeholder="user email" name="userEmail" />
+                    <input id="email-field" type="email" required placeholder="user email" name="userEmail" />
                 </div>
                 <div class="field space">
                     <span class="fa fa-lock"></span>
@@ -60,7 +62,7 @@
             <a href="#">Forgot Password?</a>
           </div> -->
                 <div class="field space">
-                    <input type="submit" value="SIGN UP" />
+                    <input id="signup-button" type="submit" value="SIGN UP" />
                 </div>
             </form>
             <!-- <div class="login">Or login with</div>
@@ -79,28 +81,83 @@
         </div>
     </div>
 
-    {{#extend "scripts"}}
+
+    {{!--script area---}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    {{!--script area---}}
+
     <script>
         $(document).ready(function () {
-            $('#userPhone').click(function () {
-                console.log("ajax");
-                $.getJSON('/api/auth/verify-phone-number/' + $(this).val(), function (data) {
-                    if (data) {
-                        $('#error-phone-number-existed').hide();
-                        $('#success-phone-number').show();
-
-                    } else {
-                        $('#error-phone-number-existed').show();
-                        $('#success-phone-number').hide();
-
+            var goodPhone = true;
+            var goodEmail = true;
+            $('#signup-button').attr('disable', 'disable').attr('style','background-color: grey;');
+            $('#userPhone').change(function () {
+                goodPhone = true;
+                let inputPhone = $('#userPhone').val();
+                let userPhoneLen = inputPhone.length;
+                if(userPhoneLen != 10)
+                {
+                    $('#error-length-of-phone').show();
+                    $('#error-phone-number-existed').hide();
+                    $('#error-phone-contains-char').hide();
+                    $('#success-phone-number').hide();
+                    $('#signup-button').attr('disable', 'disable').attr('style','background-color: grey;');
+                    goodPhone = false;
+                }
+                if(goodPhone)
+                {
+                    for(let i = 0; i< userPhoneLen; i++)
+                    {
+                        if(isNaN(parseInt(inputPhone[i])) == true)
+                        {
+                            $('#error-length-of-phone').hide();
+                            $('#error-phone-number-existed').hide();
+                            $('#error-phone-contains-char').show();
+                            $('#success-phone-number').hide();
+                            $('#signup-button').attr('disable', 'disable').attr('style','background-color: grey;');
+                            goodPhone = false;
+                            break;
+                        }
                     }
-                });
-            });
+                }
+                if(goodPhone)
+                {
+                    $.getJSON('/api/auth/verify-phone-number/' + $(this).val(), function (data) {
+                    if (data) {
+                        $('#error-length-of-phone').hide();
+                        $('#error-phone-number-existed').hide();
+                        $('#error-phone-contains-char').hide();
+                        $('#success-phone-number').show();
+                        $('#signup-button').removeAttr('disable').removeAttr('style');
+                        goodPhone = true;
+                    }   
+                    else 
+                    {
+                        $('#error-length-of-phone').hide();
+                        $('#error-phone-number-existed').show();
+                        $('#error-phone-contains-char').hide();
+                        $('#success-phone-number').hide();
+                        $('#signup-button').attr('disable', 'disable').attr('style','background-color: grey;');
+                        goodPhone = false;
+                    }
+                    });
+                }
+            }
+            
+            $('#email-field').change(function()
+            {
+                goodEmail = true;
+                
+            })
+            
+            );
         });
     </script>
-    {{/extend}}
-
-    <script>
+    
+    {{!-- <script>
         const pass_field = document.querySelector(".pass-key");
         const showBtn = document.querySelector(".show");
         showBtn.addEventListener("click", function () {
@@ -117,7 +174,7 @@
 
         const passField = document.getElementById("pass");
         const confirmPassField = document.getElementById("confirmPass");
-    </script>
+    </script> --}}
 </body>
 
 </html>
