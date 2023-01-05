@@ -1,28 +1,24 @@
 const cartService = require('./cartService');
 
-exports.cartDetail = async(req, res) =>
-{
+exports.cartDetail = async (req, res) => {
     const userPhone = req.user.loginPhone;
     console.log("cartDetail " + userPhone);
-    const products = await cartService.cartDetails(userPhone); 
-    res.json({detail: products}); 
+    const products = await cartService.cartDetails(userPhone);
+    res.json({ detail: products });
 }
 
-exports.showCart = (req, res) =>
-{
-    res.render('user/cart/cart', {layout: 'layout.hbs'});
+exports.showCart = (req, res) => {
+    res.render('user/cart/cart', { layout: 'layout.hbs' });
 }
- 
-exports.addToCart = async(req, res) =>
-{ 
-    const idProduct = req.params.idProduct; 
+
+exports.addToCart = async (req, res) => {
+    const idProduct = req.params.idProduct;
     console.log("userPhone: " + req.user.loginPhone);
     console.log("idProduct: " + req.params.idProduct);
     await cartService.addToCart(req.user.loginPhone, idProduct);
-}  
+}
 
-exports.removeFromCart = async(req, res) =>
-{
+exports.removeFromCart = async (req, res) => {
     const idProduct = req.params.idProduct;
     console.log("remove ID: " + idProduct);
     await cartService.removeFromCart(req.user.loginPhone, idProduct);
@@ -31,12 +27,11 @@ exports.removeFromCart = async(req, res) =>
 
 //check out//////////////////////////////////////////////////////////////
 
-exports.showCheckOut = async(req, res) =>
-{
+exports.showCheckOut = async (req, res) => {
+    // if (req.params.)
     const data = await cartService.cartDetails(req.user.loginPhone);
     let total = Number(0);
-    for(let i=0; i<data.length; ++i)
-    {
+    for (let i = 0; i < data.length; ++i) {
         total += Number(data[i].total);
     }
     const orderInfor = {
@@ -46,16 +41,37 @@ exports.showCheckOut = async(req, res) =>
         orderEmail: req.user.loginEmail,
         totalPrice: total
     }
-    res.render('user/cart/checkout', {layout: false, orderInfor});
+    res.render('user/cart/checkout', { layout: false, orderInfor });
 }
 
-exports.addOrder = async(req, res) =>
-{
-    if(req.body)
-    {
-        
+// momo payment
+exports.showPaymentWithMomo = async (req, res) => {
+    const data = await cartService.cartDetails(req.user.loginPhone);
+    let total = Number(0);
+    for (let i = 0; i < data.length; ++i) {
+        total += Number(data[i].total);
+    }
+    const orderInfor = {
+        orderName: req.user.loginName,
+        orderAddress: req.user.loginAddress,
+        orderPhone: req.user.loginPhone,
+        orderEmail: req.user.loginEmail,
+        totalPrice: total
+    }
+    res.render('user/cart/paymentWithMomo', { layout: false, orderInfor });
+}
+
+exports.addOrder = async (req, res) => {
+    if (req.body) {
+
         console.log("addOrder body:");
         console.log(req.body);
+
+        //handle momo
+        // if (req.body.paymentMethod == 'momo') {
+        //     res.redirect('/cart/showPaymentWithMomo');
+        // }
+        // end
         await cartService.addOrder(req.body);
         const orderList = await cartService.getOrderListByPhone(req.body.orderPhone);
         let newestOrder = { //the newest order of a specific customer - according to lastest orderId of that customer
@@ -66,10 +82,8 @@ exports.addOrder = async(req, res) =>
             orderStatus: '',
             paymentMethod: ''
         }
-        for(let i=0; i<orderList.length; i++)
-        {
-            if(newestOrder.orderId < orderList[i].orderId)
-            {
+        for (let i = 0; i < orderList.length; i++) {
+            if (newestOrder.orderId < orderList[i].orderId) {
                 newestOrder = orderList[i];
             }
         }
@@ -77,10 +91,13 @@ exports.addOrder = async(req, res) =>
         console.log(newestOrder);
 
         await cartService.addListTo_ProductOrder(newestOrder); //add products to `order` table and `orderproduct` table -> remove all current product from `cart` table
-        res.redirect('/user/order');
+        if (req.body.paymentMethod == 'momo') {
+            res.redirect('/cart/momo');
+        } else {
+            res.redirect('/user/order');
+        }
     }
-    else
-    {
+    else {
         console.log("NO ADD TO Order");
         res.redirect('/checkout');
     }

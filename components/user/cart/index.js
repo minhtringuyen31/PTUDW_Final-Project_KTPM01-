@@ -11,7 +11,9 @@ router.get('/add-to-cart/:idProduct', controller.addToCart)
 
 router.get('/remove/:idProduct', controller.removeFromCart);
 
-router.get('/checkout', controller.showCheckOut) 
+router.get('/checkout', controller.showCheckOut)
+
+router.get('/momo', controller.showPaymentWithMomo);
 
 router.post('/checkout', controller.addOrder);
 

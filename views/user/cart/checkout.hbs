@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,7 +13,7 @@
 
     <link rel="stylesheet" href="/user/css/open-iconic-bootstrap.min.css">
     <link rel="stylesheet" href="/user/css/animate.css">
-    
+
     <link rel="stylesheet" href="/user/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/user/css/owl.theme.default.min.css">
     <link rel="stylesheet" href="/user/css/magnific-popup.css">
@@ -24,7 +25,7 @@
     <link rel="stylesheet" href="/user/css/bootstrap-datepicker.css">
     <link rel="stylesheet" href="/user/css/jquery.timepicker.css">
 
-    
+
     <link rel="stylesheet" href="/user/css/flaticon.css">
     <link rel="stylesheet" href="/user/css/icomoon.css">
     <link rel="stylesheet" href="/user/css/style.css">
@@ -36,23 +37,24 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-8 ftco-animate fadeInUp ftco-animated">
-                    <form method="POST" id="check-out-form"
-                        class="billing-form ftco-bg-dark p-3 p-md-5">
+                    <form method="POST" id="check-out-form" class="billing-form ftco-bg-dark p-3 p-md-5">
                         <h3 class="mb-4 billing-heading">Billing Details</h3>
                         <div class="row align-items-end">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="fullname">Full Name:</label>
-                                    <input type="text" class="form-control" placeholder="" name="orderName" value="{{orderInfor.orderName}}" id="fullname">
+                                    <input type="text" class="form-control" placeholder="" name="orderName"
+                                        value="{{orderInfor.orderName}}" id="fullname">
                                 </div>
-                                </div>
+                            </div>
                             <div class="w-100"></div>
 
                             <div class="w-100"></div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="shipAddress">Shipping Address:</label>
-                                    <input type="text" class="form-control" placeholder="House number and street name" name="orderAddress" value="{{orderInfor.orderAddress}}" id="shipAddress">
+                                    <input type="text" class="form-control" placeholder="House number and street name"
+                                        name="orderAddress" value="{{orderInfor.orderAddress}}" id="shipAddress">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -67,13 +69,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="orderPhone">Phone</label>
-                                    <input type="text" class="form-control" placeholder="" name="orderPhone" value="{{orderInfor.orderPhone}}" id="orderPhone">
+                                    <input type="text" class="form-control" placeholder="" name="orderPhone"
+                                        value="{{orderInfor.orderPhone}}" id="orderPhone">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="orderEmail">Email Address</label>
-                                    <input type="text" class="form-control" placeholder="" name="orderEmail" value="{{orderInfor.orderEmail}}" id="orderEmail">
+                                    <input type="text" class="form-control" placeholder="" name="orderEmail"
+                                        value="{{orderInfor.orderEmail}}" id="orderEmail">
                                 </div>
                             </div>
                             <div class="w-100"></div>
@@ -81,38 +85,42 @@
                             <div class="col-md">
                                 <div class="form-group">
                                     <label for="totalPrice">Total (VND)</label>
-                                    <input type="number" class="form-control" placeholder="None" name="orderPrice" value="{{orderInfor.totalPrice}}" id="totalPrice">
+                                    <input type="number" class="form-control" placeholder="None" name="orderPrice"
+                                        value="{{orderInfor.totalPrice}}" id="totalPrice">
                                 </div>
                             </div>
                             <div class="w-100"></div>
-                            
+
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="directPay">Direct</label>
-                                    <input type="radio" class="form-control" placeholder="" name="paymentMethod" value="direct" id="directPay">
+                                    <input type="radio" class="form-control" placeholder="" name="paymentMethod"
+                                        value="direct" id="directPay">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="momoPay">Email Address</label>
-                                    <input type="radio" class="form-control" placeholder="" name="paymentMethod" value="momo" id="momoPay">
+                                    <label for="momoPay">Momo</label>
+                                    <input type="radio" class="form-control" placeholder="" name="paymentMethod"
+                                        value="momo" id="momoPay">
                                 </div>
                             </div>
                             {{!-- <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="orderEmail">Email Address</label>
-                                    <input type="text" class="form-control" placeholder="" name="paymentMethod" value="" id="orderEmail">
+                                    <input type="text" class="form-control" placeholder="" name="paymentMethod" value=""
+                                        id="orderEmail">
                                 </div>
                             </div> --}}
                         </div>
 
                         <div class="col-md">
-                                <div class="form-group">
-                                    <input type="submit" class="form-control" id="submit" value="Place an order">
-                                </div>
+                            <div class="form-group">
+                                <input type="submit" class="form-control" id="submit" value="Place an order">
+                            </div>
                         </div>
                     </form><!-- END -->
 
@@ -136,22 +144,22 @@
                                 <hr>
                                 <p class="d-flex total-price">
                                     <span>Total</span>
-                                    <span id="total-price" >{{orderInfor.totalPrice}}</span> VND
+                                    <span id="total-price">{{orderInfor.totalPrice}}</span> VND
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div> <!-- .col-md-8 -->
 
-                    <div class="sidebar-box ftco-animate fadeInUp ftco-animated">
-                        <h3>Paragraph</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem
-                            necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente
-                            consectetur similique, inventore eos fugit cupiditate numquam!</p>
-                    </div>
+                <div class="sidebar-box ftco-animate fadeInUp ftco-animated">
+                    <h3>Paragraph</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem
+                        necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente
+                        consectetur similique, inventore eos fugit cupiditate numquam!</p>
                 </div>
-
             </div>
+
+        </div>
         </div>
     </section> <!-- .section -->
 
