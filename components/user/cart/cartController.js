@@ -19,6 +19,10 @@ exports.showCart = (req, res) => {
 }
 
 exports.addToCart = async (req, res) => {
+    if(!req.user)
+    {
+        return;
+    }
     const idProduct = req.params.idProduct;
     console.log("userPhone: " + req.user.loginPhone);
     console.log("idProduct: " + req.params.idProduct);
@@ -26,6 +30,10 @@ exports.addToCart = async (req, res) => {
 }
 
 exports.removeFromCart = async (req, res) => {
+    if(!req.user)
+    {
+        return;
+    }
     const idProduct = req.params.idProduct;
     console.log("remove ID: " + idProduct);
     await cartService.removeFromCart(req.user.loginPhone, idProduct);
