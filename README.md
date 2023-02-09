@@ -18,8 +18,8 @@ development.
 ### Prerequisites
 NPM and Node.js installed
 ### Clone repo
-To get started  you can simply clone this `Intro2SE_Group7` repository and install the dependencies.  
-Clone the `Intro2SE_Group7` repository using git:
+To get started  you can simply clone this `PTUDW_Final-Project_KTPM01` repository and install the dependencies.  
+Clone the `PTUDW_Final-Project_KTPM01` repository using git:
 ```
 git clone https://github.com/minhtringuyen31/PTUDW_Final-Project_KTPM01-.git
 ```
