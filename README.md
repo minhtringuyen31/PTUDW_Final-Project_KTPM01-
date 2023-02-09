@@ -5,8 +5,7 @@ Ecommerce web application using Node.js | Express.js | MySQL
 
 ## Objective
 * Work in pairs or teams of three to develope a small to medium-sized real world web application.
-* Self-study, read and comprehend English documents and give presentations for topics related to web application .
-development.
+* Self-study, read and comprehend English documents and give presentations for topics related to web application development.
 * Understand the architecture of web applications and internet technologies.
 * Apply a web application development process to develop a small or medium-size web application.
 * Build a Web Server in Node and understand how it really works.
